@@ -1,9 +1,8 @@
 ﻿  소스.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\week03\prob8\prob8\소스.cpp(6): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\week03\prob8\prob8\소스.cpp(6): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(208): note: 'fopen' 선언을 참조하십시오.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\week03\prob8\prob8\소스.cpp(14): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\week03\prob8\prob8\소스.cpp(17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1197): note: 'fscanf' 선언을 참조하십시오.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\week03\prob8\prob8\소스.cpp(17): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\week03\prob8\prob8\소스.cpp(20): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1197): note: 'fscanf' 선언을 참조하십시오.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\week03\prob8\prob8\소스.cpp(9): warning C4101: 'single' :참조되지 않은 지역 변수입니다.
-  Prob8.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\week03\Prob8\Debug\Prob8.exe
+  Prob8.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\week03\Prob8\Debug\Prob8.exe
