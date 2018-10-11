@@ -4,17 +4,14 @@
 
 int main() {
 	FILE *fp;
-	fp = fopen("input08.txt", "r");
+	fp = fopen("input.txt", "r");
 	int case_num;
 	int N, K;
-	char single='A';
 	char *arr;
 	int count[26] = { 0, };
-	int **point;
-	int max_length = 0;
 	int num_pointer;
-	bool multi = false;
-	int min_start=0;
+	int max_length=0;
+	int head = 0, tail = 0;
 	clock_t start, end;
 
 	start = clock();
@@ -25,15 +22,9 @@ int main() {
 		fscanf(fp, "%d %d", &N, &K);
 		printf("%d %d\n",N,K);
 		arr = (char*)malloc(sizeof(char)*N);
-		point = (int**)malloc(sizeof(int*) * 26);
+		
 		for (int j = 0; j < 26; j++) {
-			point[j] = (int*)malloc(sizeof(int)*K);
-		}
-		for (int j = 0; j < 26; j++) {
-			count[j] = 0;
-			for (int k = 0; k < K; k++) {
-				point[j][k] = 0;
-			}
+			count[j] = 0;			
 		}
 
 		fgetc(fp);
@@ -41,50 +32,32 @@ int main() {
 		for (int j = 0; j < N; j++) {
 			arr[j] = fgetc(fp);
 			num_pointer = arr[j] - 65;
-			if (count[num_pointer] < K+1) {		//count가 K+1보다 작을 시에는
-				point[num_pointer][count[num_pointer]++] = j;
-			}
-			if (count[num_pointer] == K + 1) {			//숫자에 도달했을시 배열을 한행씩 밀고 maxcheck
-
-				for (int k = 0; k < 26; k++) {			// 만약 시작을 했는데 count가 K까지 도달하지 못한 알파벳이있다면 point를 민다
-					if (point[k][K - 1] == 0 && point[k][0] < min_start) {
-						int r = 0;
-						while(point[k][0]<point[num_pointer][0]&&r<K){
-							//printf("돈다아\n");
-							//printf("r : %d, point : %d\n", r,point[k][r]);
-							point[k][r++] = point[k][r];
-						}//j보다 작은동안 계속민다
-						point[k][r] = j;
-						count[k] -= r;
-					}						
-				}
-
-				min_start = point[num_pointer][0];
-							   
-				//printf("%d %d\n", min_start, j);
-				max_length = max_length > (j - min_start) ? max_length : (j - min_start);
+			if (count[num_pointer] < K) {		//count가 K보다 작을 시에 head 전진
 				
-				for (int k = 0; k < K-1; k++) {
-					point[num_pointer][k] = point[num_pointer][k + 1];
-				}
-				point[num_pointer][K - 1] = j;
-				count[num_pointer]--;
-				multi = true;
+				count[num_pointer]++;		//count에 ++
 			}
-		}
-		if (multi == false)
-			max_length = N;
-
+			else if (count[num_pointer] >= K) {		//count가 K보다 크거나 도달했을시에
+				while (arr[tail] != arr[j]) {	//해당 문자가 나올 때 까지 tail을 증가시킨다.
+				tail++;
+				printf("tail 증가 : %d, %c\n", tail,arr[tail]);
+				}				
+				tail++;			// 해당 문자에 도달했다면 tail을 한번 더 ++
+				printf("마지막에서 tail 증가 : %d, %c\n", tail, arr[tail]);
+			}
+			if (max_length < j - tail) {
+				printf("j : %d, TAIL : %d\n", j, tail);
+				max_length = j - tail;
+			}
+			//printf("HEAD : %d, TAIL : %d\n", head, tail);
+		}		
+		//printf("HEAD : %d, TAIL : %d\n", head, tail);
 		printf("max length : %d\n",max_length);
-		multi = false;
 		max_length = 0;
+		head = 0;
+		tail = 0;
 		for (int j = 0; j < 26; j++) {
 			count[j] = 0;
-			for (int k = 0; k < K; k++) {
-				point[j][k] = 0;
-			}
 		}
-
 	}
 	end = clock();
 	printf("걸린 시간 = %f초", (double)(end - start) / 1000);
