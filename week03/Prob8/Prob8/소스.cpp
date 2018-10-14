@@ -4,7 +4,7 @@
 
 int main() {
 	FILE *fp;
-	fp = fopen("input08.txt", "r");
+	fp = fopen("input.txt", "r");
 	int case_num;
 	int N, K;
 	char single='A';
@@ -27,11 +27,11 @@ int main() {
 		arr = (char*)malloc(sizeof(char)*N);
 		point = (int**)malloc(sizeof(int*) * 26);
 		for (int j = 0; j < 26; j++) {
-			point[j] = (int*)malloc(sizeof(int)*K);
+			point[j] = (int*)malloc(sizeof(int)*(K+1));
 		}
 		for (int j = 0; j < 26; j++) {
 			count[j] = 0;
-			for (int k = 0; k < K; k++) {
+			for (int k = 0; k <= K; k++) {
 				point[j][k] = 0;
 			}
 		}
@@ -45,26 +45,36 @@ int main() {
 				point[num_pointer][count[num_pointer]++] = j;
 			}
 			if (count[num_pointer] == K + 1) {			//숫자에 도달했을시 배열을 한행씩 밀고 maxcheck
+				printf("처음 : %d, 끝 : %d\n", point[num_pointer][0], point[num_pointer][count[num_pointer]-1]);
+
 
 				for (int k = 0; k < 26; k++) {			// 만약 시작을 했는데 count가 K까지 도달하지 못한 알파벳이있다면 point를 민다
-					if (point[k][K - 1] == 0 && point[k][0] < min_start) {
+					if (point[k][K] == 0 && point[k][0] < min_start) {
 						int r = 0;
 						while(point[k][0]<point[num_pointer][0]&&r<K){
-							//printf("돈다아\n");
-							//printf("r : %d, point : %d\n", r,point[k][r]);
+							//printf("알파벳 : %c, r : %d, point : %d\n", num_pointer+65,r,point[k][r]);
 							point[k][r++] = point[k][r];
-						}//j보다 작은동안 계속민다
+						}//해당 알파벳의 첫번째보다 작은동안 계속민다
 						point[k][r] = j;
 						count[k] -= r;
 					}						
 				}
 
 				min_start = point[num_pointer][0];
+
+				int result;
+
+				for (int k = 0; k < 26; k++) {
+					if (point[num_pointer][0]>point[k][0] && point[num_pointer][K]<point[k][K])
+						result = point[k][K] - point[k][0];
+					else
+						result = j - min_start;
+				}
 							   
 				//printf("%d %d\n", min_start, j);
-				max_length = max_length > (j - min_start) ? max_length : (j - min_start);
+				max_length = max_length > result ? max_length : result;
 				
-				for (int k = 0; k < K-1; k++) {
+				for (int k = 0; k < K-1; k++) {	//한칸씩 밀기
 					point[num_pointer][k] = point[num_pointer][k + 1];
 				}
 				point[num_pointer][K - 1] = j;
