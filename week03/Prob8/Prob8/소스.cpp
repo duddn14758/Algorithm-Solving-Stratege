@@ -37,17 +37,25 @@ int main() {
 				count[num_pointer]++;		//count에 ++
 			}
 			else if (count[num_pointer] >= K) {		//count가 K보다 크거나 도달했을시에
-				while (arr[tail] != arr[j]) {	//해당 문자가 나올 때 까지 tail을 증가시킨다.
+				if (max_length < j - tail) {
+					printf("j : %d, TAIL : %d", j, tail);
+					max_length = j - tail;
+					printf("max change %d\n", max_length);
+				}
+				while (arr[tail] != arr[j]&&tail<j) {	//해당 문자가 나올 때 까지 tail을 증가시킨다.
 				tail++;
-				printf("tail 증가 : %d, %c\n", tail,arr[tail]);
+				printf("tail 증가 : %d, now j : %d, %c\n", tail,j,arr[tail]);
 				}				
 				tail++;			// 해당 문자에 도달했다면 tail을 한번 더 ++
+				count[num_pointer]--;
 				printf("마지막에서 tail 증가 : %d, %c\n", tail, arr[tail]);
 			}
 			if (max_length < j - tail) {
-				printf("j : %d, TAIL : %d\n", j, tail);
+				printf("j : %d, TAIL : %d", j, tail);
 				max_length = j - tail;
+				printf("max change %d\n", max_length);
 			}
+			
 			//printf("HEAD : %d, TAIL : %d\n", head, tail);
 		}		
 		//printf("HEAD : %d, TAIL : %d\n", head, tail);
