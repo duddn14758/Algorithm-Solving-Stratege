@@ -4,6 +4,7 @@ int arr[9][9];
 int vari[9][9][9];
 int varic[9][9];
 bool setNum(int row, int col);
+void setRCS(int row, int col, int number);
 int count = 0;
 
 int main() {
@@ -29,6 +30,7 @@ int main() {
 				if (arr[i][j] == 0)
 					if (setNum(i, j)) {
 						count--;
+						setRCS(i, j, arr[i][j]);
 					}
 			}
 		}
@@ -47,17 +49,38 @@ int main() {
 void setRCS(int row, int col, int number) {
 	// row, col 중에 vari를 검사해서 varicount가 2 인것이 있다면 1로바꾸고 바로 set
 	// 없다면 varicount-- 하고 배열 하나씩 민다
+
 	int rcount = 0;
 	int ccount = 0;
 	int scount = 0;
 
 	for (int i = 0; i < 9; i++) {
 		if (varic[row][i] == 2) {
+			count--;
+			varic[row][i]--;
+			for (int j = 0; j < 9; j++) {
+				if (vari[row][i][j] != number && vari[row][i][j] != 0) {
+					arr[row][i] = vari[row][i][j];
+					setRCS(row, i, arr[row][i]);
+					return;
+				}
+			}
+		}
 
+		if (varic[i][col] == 2) {
+			count--;
+			varic[i][col]--;
+			for (int j = 0; j < 9; j++) {
+				if (vari[i][col][j] != number && vari[i][col][j] != 0) {
+					arr[i][col] = vari[i][col][j];
+					setRCS(i, col, arr[i][col]);
+					return;
+				}
+			}
 		}
 
 	}
-
+	return;
 }
 
 
