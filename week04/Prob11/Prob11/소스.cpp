@@ -31,6 +31,7 @@ int main() {
 					if (setNum(i, j)) {
 						count--;
 						setRCS(i, j, arr[i][j]);
+						//다읽어서 0 찾지말고 포인트를 찍어두고 찾으면 더빠르지않을까..
 					}
 			}
 		}
@@ -53,6 +54,9 @@ void setRCS(int row, int col, int number) {
 	int rcount = 0;
 	int ccount = 0;
 	int scount = 0;
+	
+	int rstand = row-row%3;
+	int cstand = col-col%3;
 
 	for (int i = 0; i < 9; i++) {
 		if (varic[row][i] == 2) {
@@ -80,6 +84,24 @@ void setRCS(int row, int col, int number) {
 		}
 
 	}
+
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			if (varic[i + rstand][j + cstand] == 2) {
+				count--;
+				varic[i + rstand][j + cstand]--;
+				for (int k = 0; k < 9; k++) {
+					if (vari[i + rstand][j + cstand][k] != number && vari[i + rstand][j + cstand][k] != 0) {
+						arr[i + rstand][j + cstand] = vari[i + rstand][j + cstand][k];
+						setRCS(i + rstand, j + cstand, arr[i + rstand][j + cstand]);
+						return;
+					}
+				}
+			}
+		}
+	}
+
+
 	return;
 }
 
