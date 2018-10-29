@@ -11,14 +11,14 @@ typedef struct mapping {
 
 MAP **arr;
 int *num;
-int n,M;
+int n, M;
 int limit;
-int max_reduct=0;
+int max_reduct = 0;
 
 
 int main() {
 	FILE *fp = fopen("input3.txt", "r");
-	int T;			// T:케이스 갯수, M:클래스 갯수
+	int T;
 
 	fscanf(fp, "%d", &T);
 
@@ -36,28 +36,27 @@ int main() {
 			}
 		}
 		fscanf(fp, "%d", &limit);
-		calculate(0,0,0);
+		calculate(0, 0, 0);
 		printf("최대 절감량 : %d\n", max_reduct);
 	}
 
 	return 0;
 }
 
-void calculate(int start,int price,int reduct) {
-	for (int i = start; i < n; i++) {
+void calculate(int start, int price, int reduct) {
+	for (int i = start; i < M; i++) {
 		findLow(i, price, reduct);
 	}
 }
 
-void findLow(int ecm,int price,int reduct) {
-	if (price > limit||ecm>=M)
+void findLow(int ecm, int price, int reduct) {
+	if (price > limit || ecm >= M)
 		return;
-	
+
 	max_reduct = reduct < max_reduct ? max_reduct : reduct;
-	for (int j = 1; j < M; j++) {
-		for (int i = 0; i < num[ecm]; i++) {
-			findLow(ecm + j, price + arr[ecm][i].price, reduct + arr[ecm][i].reduct);
-		}
+	for (int i = 0; i < num[ecm]; i++) {
+		calculate(ecm + 1, price + arr[ecm][i].price, reduct + arr[ecm][i].reduct);
 	}
+
 	return;
 }
