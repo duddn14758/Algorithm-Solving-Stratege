@@ -65,6 +65,11 @@ int Cycle(int start, int cur,int count) {
 				if (arr[cur][j] == visited[i])
 					return 0;
 			}
+		else if(count==K-1&&i!=0)
+			for (int j = 1; j < arr[cur][0]; j++) {
+				if (arr[cur][j] == visited[i])
+					return 0;
+			}
 	}
 
 	visited[count] = cur;
