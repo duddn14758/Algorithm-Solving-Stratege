@@ -1,8 +1,8 @@
 #include <stdio.h>
 
-int arr[9][9];
+int arr[9][9];			// 스도쿠 판
 int vari[9][9][9];
-int varic[9][9];
+int varic[9][9];		// 칸에 들어갈수 있는 숫자 카운트
 bool setNum(int row, int col);
 void setRCS(int row, int col, int number);
 int count = 0;
@@ -17,21 +17,17 @@ int main() {
 			varic[i][j] = 0;
 			if (arr[i][j] == 0) {
 				count++;
-				for (int k = 0; k < 9; k++)
-					vari[i][j][k] = 0;
 			}
 		}
 
 
 	while (count > 0) {
-
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (arr[i][j] == 0)
 					if (setNum(i, j)) {
 						count--;
 						setRCS(i, j, arr[i][j]);
-						//다읽어서 0 찾지말고 포인트를 찍어두고 찾으면 더빠르지않을까..
 					}
 			}
 		}
