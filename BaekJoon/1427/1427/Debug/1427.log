@@ -1,0 +1,5 @@
+﻿  소스.cpp
+c:\users\duddn\onedrive\바탕 화면\workspace\c\baekjoon\1427\1427\소스.cpp(12): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\duddn\onedrive\바탕 화면\workspace\c\baekjoon\1427\1427\소스.cpp(13): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\duddn\onedrive\바탕 화면\workspace\c\baekjoon\1427\1427\소스.cpp(7): warning C4101: 'buffer' :참조되지 않은 지역 변수입니다.
+  1427.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\workspace\C\BaekJoon\1427\Debug\1427.exe

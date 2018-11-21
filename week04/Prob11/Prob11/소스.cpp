@@ -8,7 +8,7 @@ typedef struct point {
 Point pt[81] = { 0,0 };
 int arr[9][9];
 int vari[9][9][9];
-int varic[9][9];
+int varic[9][9];		// 칸에 들어갈수 있는 숫자 카운트
 bool setNum(int row, int col);
 void setRCS(int row, int col, int number);
 int count = 0;
@@ -34,8 +34,6 @@ int main() {
 				chk_round[i / 3][j / 3] = true;
 				//printf("%d %d %d\n", pt->x, pt->y, pointer);
 				count++;
-				for (int k = 0; k < 9; k++)
-					vari[i][j][k] = 0;
 			}
 			else {
 				chk_row[i] = false;
@@ -51,8 +49,8 @@ int main() {
 				//setRCS(pt[i].x, pt[i].y, arr[pt[i].x][pt[i].y]);
 			}			
 		}
-
-		/*for (int i = 0; i < 9; i++) {
+		/*
+		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (arr[i][j] == 0)
 					if (setNum(i, j)) {
