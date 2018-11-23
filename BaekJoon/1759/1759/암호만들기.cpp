@@ -26,7 +26,8 @@ int main() {
 		sort(buffer);
 	}
 	
-	guessPassword(0, 1);
+	for(int i=0;i<pointer;i++)
+		guessPassword(i, 1);
 
 
 	return 0;
@@ -51,6 +52,8 @@ void change(int point) {
 }
 
 void guessPassword(int point,int count) {
+	stack[count - 1] = password[point];
+
 	if (count == p_num) {
 		PrintStack();
 	}
@@ -58,8 +61,7 @@ void guessPassword(int point,int count) {
 		return;
 	}
 	
-	for (int i = point; i < pointer; i++) {
-		stack[count-1] = password[i];
+	for (int i = point+1; i < pointer; i++) {
 		guessPassword(i, count + 1);
 	}
 }
