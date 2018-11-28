@@ -3,8 +3,8 @@
 void printCase(int pointer, int count);
 
 int num;
-int buffer[6];
-int arr[13];
+int buffer[7];
+int arr[14];
 
 
 int main() {
@@ -30,7 +30,7 @@ int main() {
 }
 
 void printCase(int pointer, int count) {
-	if (pointer > num || count > 6)
+	if (pointer > num || count > 5)
 		return;
 	
 	buffer[count] = arr[pointer];	

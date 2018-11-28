@@ -1,7 +1,7 @@
 ﻿  로또.cpp
-c:\users\youngwoo\desktop\알고리즘\baekjoon\6603\6603\로또.cpp(14): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\6603\6603\로또.cpp(14): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\youngwoo\desktop\알고리즘\baekjoon\6603\6603\로또.cpp(19): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\6603\6603\로또.cpp(19): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\youngwoo\desktop\알고리즘\baekjoon\6603\6603\로또.cpp(11): warning C4101: 'stop' :참조되지 않은 지역 변수입니다.
-  6603.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\6603\Debug\6603.exe
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\6603\6603\로또.cpp(11): warning C4101: 'stop' :참조되지 않은 지역 변수입니다.
+  6603.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\6603\Debug\6603.exe
