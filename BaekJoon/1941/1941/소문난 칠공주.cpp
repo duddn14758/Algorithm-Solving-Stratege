@@ -1,12 +1,19 @@
 #include <stdio.h>
 
+typedef struct Point {
+	int x;
+	int y;
+}pt;
+
 int makeSeven(int count, int pos, int s, int y);
 bool component(int pos);
 void PrintMap();
 void PrintSeat();
 
-char seat[25];
-int visited[5][5];
+char seat[26];
+int visited[6][6];
+pt point[7];
+
 
 int main() {
 	char buffer[6];
@@ -16,6 +23,7 @@ int main() {
 		scanf("%s", buffer);
 		for (int j = 0; j < 5; j++) {
 			seat[i*5+j] = buffer[j];
+			visited[i][j] = 0;
 		}
 	}
 
@@ -28,28 +36,31 @@ int main() {
 }
 
 int makeSeven(int count, int pos, int s,int y) {	
-	//printf("%d %d %d %d\n", count, pos, s, y);
-
 	int num = 0;
 
-	if (y > 3) return 0;
+	point[count - 1].x = pos / 5;
+	point[count - 1].y = pos % 5;
+
+	if (y > 3||count>7) return 0;
 
 	visited[pos/5][pos%5] = 1;
+	
+	//PrintMap();
 	
 	if (seat[pos] == 'Y') y++;
 	else s++;
 
 	if (count == 7 && s >= 4) {
-		//printf("%d %d %d %d\n", count, pos, s, y);
-		PrintMap();		
+		//PrintMap();		
+		visited[pos / 5][pos % 5] = 0;
 		return 1;
 	}
-	for (int i = pos+1; i < 25; i++) {
-		if(component(i))
-			num+=makeSeven(count + 1, i, s, y);
+	for (int i = pos+1; i < 19+count; i++) {
+		if (component(i)) 
+			num += makeSeven(count + 1, i, s, y);		
 	}
+	visited[pos / 5][pos % 5] = 0;
 
-	visited[pos/5][pos%5] = 0;
 	   
 	return num;
 }
@@ -78,17 +89,24 @@ bool component(int pos) {
 	int x = pos / 5;
 	int y = pos % 5;
 
-	if (x > 3 && visited[x + 1][y])
+	if (x < 4 && visited[x + 1][y])
 		isNear = true;
 	if (x > 0 && visited[x - 1][y])
 		isNear = true;
+	if (y < 4 && visited[x][y + 1])
+		isNear = true;
+	if (y > 0 && visited[x][y - 1])
+		isNear = true;
 
-	for (int i = 0; i < pos; i++) {
-		int x = i / 5;
-		int y = i % 5;
-		if(visited[pos-1])
-			
-
-	}
+	//if (isNear)
+		//printf("true position : %d\n", pos);
+		
 	return isNear;
+}
+
+bool check() {
+	for (int i = 0; i < 7; i++) {
+		if (!component(point[i].x * 5 + point[i].y))
+			return false;
+	}
 }

@@ -1,4 +1,5 @@
 ﻿  소문난 칠공주.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\1941\1941\소문난 칠공주.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\1941\1941\소문난 칠공주.cpp(23): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-  1941.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\1941\Debug\1941.exe
+c:\users\youngwoo\desktop\알고리즘\baekjoon\1941\1941\소문난 칠공주.cpp(112): warning C4715: 'check': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  1941.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\1941\Debug\1941.exe
