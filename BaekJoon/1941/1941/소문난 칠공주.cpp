@@ -9,6 +9,7 @@ int makeSeven(int count, int pos, int s, int y);
 bool component(int pos);
 void PrintMap();
 void PrintSeat();
+int getNum(int x, int y);
 
 char seat[26];
 int visited[6][6];
@@ -29,6 +30,8 @@ int main() {
 
 	for (int i = 0; i <= 19; i++)
 		number += makeSeven(1, i, 0, 0);
+
+	
 
 	printf("%d\n", number);
 
@@ -51,7 +54,10 @@ int makeSeven(int count, int pos, int s,int y) {
 	else s++;
 
 	if (count == 7 && s >= 4) {
-		//PrintMap();		
+		//printf("°¹¼ö : %d\n",getNum(1, 0));
+
+
+		PrintMap();		
 		visited[pos / 5][pos % 5] = 0;
 		return 1;
 	}
@@ -104,9 +110,19 @@ bool component(int pos) {
 	return isNear;
 }
 
-bool check() {
-	for (int i = 0; i < 7; i++) {
-		if (!component(point[i].x * 5 + point[i].y))
-			return false;
-	}
+int getNum(int x,int y) {
+	int num = 0;
+
+	visited[x][y] = 2;
+	
+	if (x < 4 && visited[x + 1][y]==1)
+		num = num + getNum(x + 1, y);
+	if (x > 0 && visited[x - 1][y]==1)
+		num = num + getNum(x - 1, y);
+	if (y < 4 && visited[x][y + 1]==1)
+		num = num + getNum(x, y+1);
+	if (y > 0 && visited[x][y - 1]==1)
+		num = num + getNum(x, y - 1);
+
+	return 1+num;
 }
