@@ -3,8 +3,6 @@ c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\1932\1932\정수�
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
 c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\1932\1932\정수삼각형.cpp(11): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\1932\1932\정수삼각형.cpp(12): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
 c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\1932\1932\정수삼각형.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
   1932.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\DP\1932\Debug\1932.exe
