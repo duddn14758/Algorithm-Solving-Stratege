@@ -2,8 +2,10 @@
 
 void GoPath(int prev, int cur);
 void Print();
+void findPath(int first);
 
 int line[101][101];
+int visited[101][101];
 int num;
 
 int main() {
@@ -14,22 +16,34 @@ int main() {
 			scanf("%d", &line[i][j]);
 	}
 	
-	for(int i=0;i<num;i++)
-		if(line[0][i])
-			GoPath(0, i);
+	for (int i = 0; i < num; i++)
+		findPath(i);
+	Print();
 
 	return 0;
 }
 
-void GoPath(int prev, int cur) {
-	printf("%d %d\n", prev, cur);
-	line[cur][prev] = 1;
+void findPath(int first) {
 	for (int i = 0; i < num; i++) {
-		if (i == prev) continue;
-		if (line[cur][i])
-			GoPath(cur, i);
+		if (line[first][i]) {
+			GoPath(first, i);
+		}
 	}
-	Print();
+
+}
+
+void GoPath(int first, int cur) {
+	if (visited[first][cur])
+		return;
+
+	line[first][cur] = 1;
+	visited[first][cur] = 1;
+
+	for (int i = 0; i < num; i++) {
+		if (line[cur][i])
+			GoPath(first, i);
+	}
+
 }
 
 void Print() {
