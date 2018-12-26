@@ -1,0 +1,7 @@
+﻿  숫자고르기.cpp
+c:\users\youngwoo\desktop\알고리즘\baekjoon\dfs\2668\2668\숫자고르기.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\dfs\2668\2668\숫자고르기.cpp(20): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\dfs\2668\2668\숫자고르기.cpp(46): warning C4551: 함수 호출에 인수 목록이 없습니다.
+  2668.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\DFS\2668\Debug\2668.exe
