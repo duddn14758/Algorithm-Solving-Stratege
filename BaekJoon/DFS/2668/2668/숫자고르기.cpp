@@ -1,94 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-bool isIn(int n, int count);
-void getMax();
-void calMax(int cur, int count);
-bool isSame(int count);
-void setMax(int count);
+bool getMax(int start, int cur);
 
-int MaxStack[101];
-int second[101];
-int stack[101];
-int max = 0;
 int num;
-
-int compare(const void *a, const void *b)
-{
-	return *(int *)a - *(int *)b;
-}
+int node[101];
+bool visited[101];
+bool cycle[101];
+int max = 0;
 
 int main() {
 	scanf("%d", &num);
 
 	for (int i = 0; i < num; i++) {
-		scanf("%d", &second[i]);
+		scanf("%d", &node[i]);
 	}
 
-	getMax();
+	for (int i = 0; i < num; i++) {
+		getMax(i, i);
+	}
 
 	printf("%d\n", max);
-	for (int i = 0; i < max; i++)
-		printf("%d\n", MaxStack[i]);	
-
+	for (int i = 0; i < num; i++)
+		if (cycle[i])
+			printf("%d\n", i + 1);
 	return 0;
 }
 
-void setMax(int count) {
-	for (int i = 0; i < count; i++) {
-		MaxStack[i] = stack[i];
+bool getMax(int start,int cur) {
+	if (visited[cur] == 1)
+		return false;
+
+	visited[cur] = true;
+		
+	if (start == node[cur] - 1) {
+		cycle[cur] = true;
+		max++;
+		return true;
 	}
-}
-
-void getMax() {
-	for (int i = 0; i < num; i++) {
-		calMax(i,0);
+	else {
+		cycle[cur] = getMax(start, node[cur] - 1);
+		if (cycle[cur]) {
+			max++;
+		}
+		else
+			visited[cur] = false;
+		return cycle[cur];
 	}
-}
-
-void calMax(int cur,int count) {
-	if (cur >= num)
-		return;
-
-	stack[count++] = cur+1;
-
-	if (count>max&&isSame(count)) {
-		setMax(count);
-		max = count;
-	}
-
-	for (int i = cur+1; i < num; i++) {
-		calMax(i, count);
-	}
-}
-
-bool isSame(int count) {
-	int copied[101];
-
-	for (int i = 0; i < count; i++) {
-		copied[i] = second[stack[i] - 1];
-	}
-	qsort(copied, count, sizeof(int), compare);
-
-	for (int i = 0; i < count; i++) {
-		if (copied[i] != stack[i])
-			return false;
-	}
-	return true;
-	/*for (int i = 0; i < count; i++) {
-		if (!isIn(stack[i],count))
-			return false;
-	}
-	return true;*/
-}
-
-bool isIn(int n,int count) {
-	bool f=false;
-	bool s=false;
-	for (int i = 0; i < count; i++) {		
-		if (n == second[stack[i] - 1]) f = true;
-		if (second[n - 1] == stack[i]) s = true;
-	}
-
-	return f & s;
 }
