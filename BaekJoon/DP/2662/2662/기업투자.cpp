@@ -4,7 +4,7 @@ void getDP(int count);
 
 int chart[301][22];
 int dp[301][21];
-int company[301][21];
+int company[301][21];	//22 행렬마다 케이스 설정?
 int N, M;
 
 int main() {
@@ -17,18 +17,17 @@ int main() {
 	for (int i = 0; i < N; i++)
 		getDP(i);
 
-	/*printf("%d\n", dp[N-1][M-1]);
-	for (int i = 0; i < M; i++) {
-		printf("%d ", company[N - 1][i]);
-	}
+	/*printf("%d\n", dp[N - 1][M - 1]);
+	for (int i = 0; i < M; i++)
+		printf("%d ", company[N-1][i]);*/
 
-	printf("\n");*/
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			printf("%d ", dp[i][j]);
 		}
 		printf("\n");
 	}
+	printf("\n");
 
 	for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
@@ -58,7 +57,7 @@ void getDP(int count) {
 					if (dp[count - j - 1][i - 2] + chart[j][i] > dp[count][i - 1]) {
 						for(int k=0;k<i;k++)
 							company[count][k] = company[count - j - 1][k];
-						company[count][i - 1] = j;
+						company[count][i - 1] = chart[j][0];
 					}
 					dp[count][i - 1] = dp[count - j -1][i - 2] + chart[j][i] > dp[count][i - 1] ? dp[count - j - 1][i - 2] + chart[j][i] : dp[count][i - 1];
 				}
