@@ -38,14 +38,14 @@ int main() {
 		printf("\n");
 	}*/
 
-	for (int i = 0; i < N; i++) {
+	/*for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
 			for (int k = 0; k <= j; k++) {
 				printf("%d ", company[i][j][k]);
 			}
 			printf("\n");
 		}
-	}
+	}*/
 
 	return 0;
 }
@@ -72,8 +72,8 @@ void getDP(int count) {
 				for (int j = 0; j < count; j++) {	
 					if (dp[count - j - 1][i - 2] + chart[j][i] > dp[count][i - 1]) {
 						for (int k = 0; k < i; k++)
-							company[count][i - 1][k] = company[j][i - 2][k];
-						company[count][i - 1][i - 1] = count - j;
+							company[count][i - 1][k] = company[count-j-1][i - 2][k];
+						company[count][i - 1][i - 1] = j+1;
 					}
 					dp[count][i - 1] = dp[count - j -1][i - 2] + chart[j][i] > dp[count][i - 1] ? dp[count - j - 1][i - 2] + chart[j][i] : dp[count][i - 1];
 				}
