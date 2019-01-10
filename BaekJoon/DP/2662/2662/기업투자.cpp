@@ -21,6 +21,7 @@ int main() {
 	printf("%d\n", dp[N - 1][M - 1]);
 	for (int i = 0; i < M; i++)
 		printf("%d ", company[N-1][M-1][i]);
+	printf("\n");
 
 	/*for (int i = 0; i < N; i++) {
 		for (int j = 0; j < M; j++) {
@@ -37,6 +38,15 @@ int main() {
 		printf("\n");
 	}*/
 
+	for (int i = 0; i < N; i++) {
+		for (int j = 0; j < M; j++) {
+			for (int k = 0; k <= j; k++) {
+				printf("%d ", company[i][j][k]);
+			}
+			printf("\n");
+		}
+	}
+
 	return 0;
 }
 
@@ -47,18 +57,23 @@ void getDP(int count) {
 				dp[count][0] = chart[count][1];
 				company[count][i - 1][0] = count + 1;
 			}
-			else {
+			else {				
 				if (dp[count][i - 2] <= chart[count][i]) {
 					for (int j = 0; j < i-1; j++)
 						company[count][i-1][j] = 0;
 					company[count][i - 1][i - 1] = count + 1;
+				}		
+				else {
+					for (int j = 0; j < i - 1; j++)
+						company[count][i - 1][j] = company[count][i-2][j];
+					company[count][i - 1][i - 1] = 0;
 				}
-				dp[count][i-1] = dp[count][i-2]>chart[count][i]?dp[count][i-2]:chart[count][i];
+				dp[count][i - 1] = dp[count][i - 2] > chart[count][i] ? dp[count][i - 2] : chart[count][i];
 				for (int j = 0; j < count; j++) {	
 					if (dp[count - j - 1][i - 2] + chart[j][i] > dp[count][i - 1]) {
 						for (int k = 0; k < i; k++)
 							company[count][i - 1][k] = company[j][i - 2][k];
-						company[count][i - 1][i - 1] = count - j ;
+						company[count][i - 1][i - 1] = count - j;
 					}
 					dp[count][i - 1] = dp[count - j -1][i - 2] + chart[j][i] > dp[count][i - 1] ? dp[count - j - 1][i - 2] + chart[j][i] : dp[count][i - 1];
 				}

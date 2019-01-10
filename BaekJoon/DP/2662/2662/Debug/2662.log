@@ -1,6 +1,6 @@
 ﻿  기업투자.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\2662\2662\기업투자.cpp(12): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\dp\2662\2662\기업투자.cpp(12): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\dp\2662\2662\기업투자.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\dp\2662\2662\기업투자.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
   c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-  2662.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\DP\2662\Debug\2662.exe
+  2662.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\DP\2662\Debug\2662.exe
