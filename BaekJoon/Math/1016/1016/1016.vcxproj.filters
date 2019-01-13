@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="소스.cpp">
+    <ClCompile Include="제곱ㄴㄴ수.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
