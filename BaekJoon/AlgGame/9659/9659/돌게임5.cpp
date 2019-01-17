@@ -19,10 +19,9 @@ int main() {
 		scanf("%d", &way[i]);
 		arr[way[i]] = true;
 		if (i == 0) {
-			if (way[i] != 1) {
+			if (way[i] != 1)
 				isOne = false;
-				break;
-			}
+				
 			for (int j = 1; j < way[i]; j++)
 				arr[j] = false;
 		}
@@ -54,9 +53,9 @@ int main() {
 	}
 	if (isOne) {
 		cur = way[num - 1] + 1;
-		buffer = cur;
+		buffer = n;
 
-		while (pointer <= buffer) {			
+		while (cur<=n||(pointer <= buffer)) {			
 			bool isTrue = false;
 			for (int i = 0; i < num; i++) {
 				if (!arr[cur - way[i]]) {
@@ -68,31 +67,53 @@ int main() {
 				arr[cur] = true;
 			//printf("%d\n", arr[cur]);
 
-			if (arr[cur] == arr[pointer])
-				pointer++;
-			else {
-				buffer = cur;
-				pointer = 1;
+			if (cur > 600) {
+				if (arr[cur] == arr[pointer])
+					pointer++;
+				else {
+					buffer = cur;
+					pointer = 1;
+				}
 			}
+			//printf("current : %lld, arr[%lld] : %d\n", cur,cur,arr[cur]);
 			cur++;
 		}
-		pointer--;
-
-		for (int i = 1; i <= pointer; i++) {
-			if (!arr[i])
-				count++;
+		if (cur > n) {
+			for (int i = 1; i <= n; i++) {
+				//printf("%d %lld\n", i, count);
+				if(!arr[i])
+					count++;
+			}
 		}
-		count = count * (n / pointer);
-		if (pointer != 1) 
-			n %= pointer;
+		else {
+			/*for (int i = 1; i <= buffer; i++) {
+				printf("%d\n", arr[i]);
+				if (!arr[i])
+					count++;
+			}*/
 
-		for (int i = 1; i <= n; i++) {
-			if (!arr[i])
-				count++;
+			for (int i = 1; i <= buffer; i++) {
+				//printf("%d\n", arr[i]);
+				if (!arr[i])
+					count++;
+			}
+
+			count = count * (n / buffer);
+			n %= buffer;
+
+			for (int i = 1; i <= n; i++) {
+				//printf("%d\n", arr[i]);
+				if (!arr[i])
+					count++;
+			}
 		}
 	}
 	else
 		count = 0;
+
+	//printf("%d\n", buffer);	
+	//for (int i = 1; i <= (int)buffer; i++)
+		//printf("%d\n", arr[i]);
 
 	printf("%lld", count);
 	
