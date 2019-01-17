@@ -1,22 +1,28 @@
 #include <stdio.h>
 
-bool arr[1000000];
-int way[23];
+bool arr[10000];
+int way[25];
 
 int main() {
 	long long n;
 	int num;
-	int buffer=0;
-	int pointer=1;
-	int cur = 0;
-	int count = 0;
+	bool isOne = true;
+	long long buffer=0;
+	long long pointer=1;
+	long long cur = 0;
+	long long count = 0;
 	scanf("%lld", &n);
 	scanf("%d", &num);
+	arr[0] = false;
 
 	for (int i = 0; i < num; i++) {
 		scanf("%d", &way[i]);
 		arr[way[i]] = true;
 		if (i == 0) {
+			if (way[i] != 1) {
+				isOne = false;
+				break;
+			}
 			for (int j = 1; j < way[i]; j++)
 				arr[j] = false;
 		}
@@ -46,35 +52,49 @@ int main() {
 			}
 		}
 	}
-	cur = way[num-1]+1;
-	buffer = cur;
+	if (isOne) {
+		cur = way[num - 1] + 1;
+		buffer = cur;
 
-	while (pointer>buffer) {
-		bool isTrue = false;
-		for (int i = 0; i < num; i++) {
-			if (!arr[cur - way[i]]) {
-				isTrue = true;
-				break;
+		while (pointer <= buffer) {			
+			bool isTrue = false;
+			for (int i = 0; i < num; i++) {
+				if (!arr[cur - way[i]]) {
+					isTrue = true;
+					break;
+				}
 			}
-		}
-		if (isTrue)
-			arr[cur] = true;
-		//printf("%d\n", arr[cur]);
+			if (isTrue)
+				arr[cur] = true;
+			//printf("%d\n", arr[cur]);
 
-		if (arr[cur] == arr[pointer])
-			pointer++;
-		else {
-			buffer = cur - 1;
-			pointer = 1;
+			if (arr[cur] == arr[pointer])
+				pointer++;
+			else {
+				buffer = cur;
+				pointer = 1;
+			}
+			cur++;
 		}
-		cur++;
+		pointer--;
+
+		for (int i = 1; i <= pointer; i++) {
+			if (!arr[i])
+				count++;
+		}
+		count = count * (n / pointer);
+		if (pointer != 1) 
+			n %= pointer;
+
+		for (int i = 1; i <= n; i++) {
+			if (!arr[i])
+				count++;
+		}
 	}
-	
+	else
+		count = 0;
 
-	for (int i = 1; i <= buffer; i++)
-		printf("%d\n", arr[i]);
-
-	//printf("%d", count);
+	printf("%lld", count);
 	
 	return 0;
 }
