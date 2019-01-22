@@ -7,13 +7,44 @@ int two = 0, five = 0;
 int main() {
 	long long a, b;
 	scanf("%lld %lld", &a, &b);
+	long long n1 = 1, n2 = 1;
 	long long answer = 0;
 
 	for (long long i = 0; i < b; i++) {
 		getUP(a--);
 		getDown(i + 1);
 	}
-		
+
+	while (n1 <= a) {
+		n1 *= 2;
+		two += a / n1;
+	}
+
+	while (n2 <= a) {
+		n2 *= 5;
+		five += a / n2;
+	}
+	n1 = 1;
+	n2 = 1;
+	while (n1 <= b) {
+		n1 *= 2;
+		two -= b / n1;
+	}
+	while (n2 <= b) {
+		n2 *= 5;
+		five -= b / n2;
+	}
+	n1 = 1;
+	n2 = 1;
+	while (n1 <= a-b) {
+		n1 *= 2;
+		two -= (a-b) / n1;
+	}
+	while (n2 <= a) {
+		n2 *= 5;
+		five -= (a-b) / n2;
+	}
+
 	answer = two > five ? five : two;
 	printf("%lld\n", answer);
 
