@@ -3,9 +3,9 @@
 void getCount();
 void DFS(int i, int j, int c);
 
-int pan[5][5];
-int stack[10000][6];
-int buffer[6];
+int pan[6][6];
+int numArr[10000];
+int numBuff = 0;
 
 int count = 0;
 
@@ -29,37 +29,27 @@ void getCount() {
 }
 
 void DFS(int i, int j, int c) {	
-	if (c>5||i < 0 || j < 0 || i>5 || j>5)
+	if (c>5||i < 0 || j < 0 || i>4 || j>4)
 		return;
-	buffer[c++] = pan[i][j];
+	numBuff *= 10;
+	numBuff += pan[i][j];	
 
-	
-
-	if (c == 6) {
-		/*printf("%d %d %d", i, j, c);
-		printf(" buffer : ");
-		for (int k = 0; k < c; k++)
-			printf("%d ", buffer[k]);
-		printf("\n");*/
+	if (c == 5) {
 		for (int k = 0; k < count; k++) {
-			int pointer = 0;
-			while (pointer < 6 && buffer[pointer] == stack[k][pointer]) {
-				pointer++;
-			}
-			if (pointer == 6)
+			if (numBuff == numArr[k]) {
+				numBuff -= pan[i][j];
+				numBuff /= 10;
 				return;
-			else {
-				pointer = 0;
-				while (pointer != 6) {
-					stack[count++][pointer] = buffer[pointer++];
-				}
 			}
-		}
+		}		
+		numArr[count++] = numBuff;
 	}
 	else {
-		DFS(i, j + 1, c);
-		DFS(i + 1, j, c);
-		DFS(i, j - 1, c);
-		DFS(i - 1, j, c);
+		DFS(i, j + 1, c+1);
+		DFS(i + 1, j, c+1);
+		DFS(i, j - 1, c+1);
+		DFS(i - 1, j, c+1);
 	}
+	numBuff -= pan[i][j];
+	numBuff /= 10;
 }
