@@ -9,11 +9,7 @@ int main() {
 	scanf("%lld %lld", &a, &b);
 	long long n1 = 1, n2 = 1;
 	long long answer = 0;
-
-	for (long long i = 0; i < b; i++) {
-		getUP(a--);
-		getDown(i + 1);
-	}
+	
 
 	while (n1 <= a) {
 		n1 *= 2;
@@ -40,7 +36,7 @@ int main() {
 		n1 *= 2;
 		two -= (a-b) / n1;
 	}
-	while (n2 <= a) {
+	while (n2 <= a-b) {
 		n2 *= 5;
 		five -= (a-b) / n2;
 	}
