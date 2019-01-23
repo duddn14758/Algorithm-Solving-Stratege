@@ -1,54 +1,36 @@
 #include <stdio.h>
+#include <queue>
 
-void Print(int num);
+using namespace std;
 
-int stack[32001][2];
-int visited[32001];
-bool isRoot[32001];
+int degree[32001];		// 진입차수 기록
+vector<int> v[32001];	// i번째 정점이 향하는 목표점들을 기록
 
-int main() {
+int main() {		// vector를 이용한 위상 정렬 알고리즘
 	int n, m;
 	int small, tall;
+
 	scanf("%d %d", &n, &m);
 
 	for (int i = 0; i < m; i++) {
 		scanf("%d %d", &small, &tall);
-
-		if (stack[tall][0] != small) {
-			stack[stack[tall][0]][1] = small;
-			stack[tall][0] = small;
-		}
-
-		if (stack[small][1] != tall) {
-			stack[stack[small][1]][0] = tall;
-			stack[small][1] = tall;
-		}
-
-		stack[small][1] = tall;
-		stack[tall][0] = small;
-		visited[tall] = false;
-		visited[small] = false;
+		degree[tall]++;				// 진입차수 카운팅
+		v[small].push_back(tall);			// small정점이 향한 정점 tall을 추가
 	}
 
-	for (int i = 1; i <= 5; i++) {
-		printf("%d ", visited[i]);
+	queue<int> now;					// 진입차수가 0인 정점들을 삽입하기위한 큐
+	for (int i = 1; i <= n; i++) {
+		if (degree[i] == 0) now.push(i);
 	}
-	
-	for (int i = 1; i <= 32000; i++) {
-		if (visited[i]&&stack[i][0] == 0) {
-			printf("%d\n", i);
-			//Print(i);
+
+	while (!now.empty()) {
+		int i = now.front(); now.pop();
+		printf("%d ", i);
+		for (int j = 0; j < v[i].size(); j++) {	// i 번째 정점이 향하던 점들의 진입차수 업데이트
+			if (--degree[v[i][j]] == 0)			// 업데이트 이후에 진입차수가 0이 된다면
+				now.push(v[i][j]);				// queue에 push
 		}
 	}
-	
+
 	return 0;
-}
-
-void Print(int num) {
-	while (1){
-		printf("%d ", num);
-		visited[num++] = true;
-		if (stack[num][1] != 0)
-			return;
-	}
 }
