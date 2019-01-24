@@ -1,0 +1,6 @@
+﻿  FlyMe.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\math\1011\1011\flyme.cpp(9): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\math\1011\1011\flyme.cpp(12): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
+  1011.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Math\1011\Debug\1011.exe
