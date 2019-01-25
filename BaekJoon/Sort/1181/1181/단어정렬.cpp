@@ -1,36 +1,28 @@
 #include <stdio.h>
-#include <queue>
-#include <iostream>
-#include <cstdio>
-
-using namespace std;
 
 int getLength(char *c);
 void Push(int p);
 int compare(char *a, char*b, int size);
 
-char v[20000][50];
-int stack[20000];		//stack에는 v의 포지션을 저장!
-int length[20000];
+char v[20001][52];
+int stack[20001];		//stack에는 v의 포지션을 저장!
+int length[20001];
 int pointer = 0;
-
-queue<int> q;
 
 int main() {
 	int num;
 
-	cin >> num;
+	scanf("%d", &num);
 
 	for (int i = 0; i < num; i++) {
 		scanf("%s", v[i]);
 		length[i] = getLength(v[i]);
 	}
 
-	for (int i = 1; i < 50; i++) {
+	for (int i = 1; i <= 50; i++) {
 		pointer = 0;
 		for (int j = 0; j < num; j++) {
 			if (length[j] == i) {
-				printf("%s\n", v[j]);
 				Push(j);
 			}
 		}
@@ -44,28 +36,33 @@ void Push(int p) {
 	int pos = 0;
 	int state;
 	while (pos < pointer) {
-		state = compare(v[stack[pos]], v[stack[p]], length[p]);
-		if (state == 1)
+		state = compare(v[stack[pos]], v[p], length[p]);
+		if (state == 1) {
+			pos++;
 			continue;
+		}
 		else if (state == -1)
 			break;
 		else
 			return;
 	}	
-	for (int i = pos; i < pointer; i++) {
-		stack[i + 1] = stack[i];
+	for (int i = pointer; i > pos; i--) {
+		stack[i] = stack[i-1];
 	}
-	stack[pos] = p;
 
+	stack[pos] = p;
 	pointer++;
 }
 
 int compare(char *a, char*b,int size) {		//a가 b보다 작으면 1 리턴  else -1 리턴
+	//printf("compare -- %s %s\n", a, b);
 	for (int i = 0; i < size; i++) {
-		if (a[i] < b[i])
+		if (a[i] < b[i]) {
 			return 1;
-		else if (a[i] > b[i])
+		}
+		else if (a[i] > b[i]) {
 			return -1;
+		}
 		else
 			continue;
 	}
