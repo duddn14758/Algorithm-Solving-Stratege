@@ -1,36 +1,41 @@
 #include <iostream>
 
+typedef struct Quu {
+	int imp;
+	int num;
+};
+
 int main() {
-	int c,num,point,buf,pointer=0;
-	int q[101];
-	int soon = 0;
-	bool first = false;
-	bool dif = false;
+	int c,num,point,buf;
+	Quu q[101];
 	std::cin >> c;
 
 	while (c-- > 0) {
 		std::cin >> num>>point;
-		soon = 1;
-		buf = 0;
-		first = false;
-		dif = false;
+		int start = 0, end = num;
 		for (int i = 0; i < num; i++) {
-			std::cin >> q[i];					
+			std::cin >> buf;
+			q[i].imp = buf;
+			q[i].num = i;
 		}
+		int pointer = 0;
+		int sec = 0;
 		for (int i = 0; i < num; i++) {
-			if (i == point) continue;
-			else if (q[i] >= q[point]) {
-				if (i>point&&!first&&q[i] > q[point]) {
-					buf = i-point-1;
-					first = true;
-				}				
-				soon++;				
+			pointer = sec;
+			while (q[i].imp < q[pointer].imp) {
+				pointer++;
 			}
-			if (q[i] != q[point])
-				dif = true;
+			for (int j = num; j < num + pointer; j++) {
+				q[j] = q[j - num];
+			}
+			for (int j = 0; j < num; j++) {
+				q[j] = q[j + pointer];
+			}
 		}
-		if (!dif) buf = num-point -1;
-		std::cout << soon - buf<<std::endl;
+
+		for (int i = 0; i < num; i++)
+			std::cout << q[i].imp<<" ";
+		std::cout << std::endl;
 	}
 
 	return 0;
