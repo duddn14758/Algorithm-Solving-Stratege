@@ -20,16 +20,24 @@ int main() {
 		}
 		int pointer = 0;
 		int sec = 0;
-		for (int i = 0; i < num; i++) {
-			pointer = sec;
-			while (q[i].imp < q[pointer].imp) {
-				pointer++;
-			}
-			for (int j = num; j < num + pointer; j++) {
-				q[j] = q[j - num];
-			}
-			for (int j = 0; j < num; j++) {
-				q[j] = q[j + pointer];
+		int a = 100;
+		while (sec<num) {
+			for (int i = sec; i <= num; i++) {
+				if (i == num) {
+					sec++;
+					break;
+				}
+				pointer = sec;
+				while (q[i].imp < q[pointer].imp) {
+					pointer++;
+				}
+				if (pointer == num) sec++;
+				for (int j = num; j < num + pointer; j++) {
+					q[j] = q[j - num];
+				}
+				for (int j = 0; j < num; j++) {
+					q[j] = q[j + pointer];
+				}
 			}
 		}
 
