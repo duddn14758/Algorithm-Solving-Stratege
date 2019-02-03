@@ -21,29 +21,40 @@ int main() {
 		int pointer = 0;
 		int sec = 0;
 		int a = 100;
-		while (sec<num) {
-			for (int i = sec; i <= num; i++) {
-				if (i == num) {
-					sec++;
-					break;
+			for (int i = 0; i < num; i++) {
+				/*for (int j = sec; j < num; j++) {
+					std::cout << q[j].imp << " ";
 				}
-				pointer = sec;
-				while (q[i].imp < q[pointer].imp) {
+				std::cout << std::endl << sec << " " << i << std::endl;*/
+				
+				pointer = sec+1;
+				while (pointer<num&&q[sec].imp >= q[pointer].imp) {
+					//std::cout << "compare " << q[sec].imp << " : " << q[pointer].imp << std::endl;
 					pointer++;
 				}
-				if (pointer == num) sec++;
-				for (int j = num; j < num + pointer; j++) {
-					q[j] = q[j - num];
+				if (pointer == num) {
+					if (point == q[sec].num)
+						break;
+					sec++;
 				}
-				for (int j = 0; j < num; j++) {
-					q[j] = q[j + pointer];
+				else {
+					for (int j = num; j < num + pointer; j++) {
+						q[j] = q[j - num+sec];
+					}
+					for (int j = sec; j < num; j++) {
+						q[j] = q[j + pointer];
+					}
 				}
+				i = sec;
 			}
-		}
+			for (int i = 0; i < num; i++) {
+				if (q[i].num == point)
+					std::cout << i+1 << std::endl;
+			}
 
-		for (int i = 0; i < num; i++)
+		/*for (int i = 0; i < num; i++)
 			std::cout << q[i].imp<<" ";
-		std::cout << std::endl;
+		std::cout << std::endl;*/
 	}
 
 	return 0;
