@@ -23,30 +23,34 @@ int main() {
 	}
 
 	while (!pq.empty()) {
-		cout << pq.top().first << " " << pq.top().second << endl;
+		//cout << pq.top().first << " " << pq.top().second << endl;
 		height = pq.top().first;
 		weight = pq.top().second;
 		pq.pop();
 		q.push(pair<int, int>(height, weight));
 
-		while (!pq.empty()&&weight < pq.top().second) {	//같은순서의 것들을 큐에 push
-			height = pq.top().first;
-			weight = pq.top().second;
+		while (!pq.empty()&&(weight < pq.top().second&&height>pq.top().first)) {	//같은순서의 것들을 큐에 push
+			//height = pq.top().first;
+			//weight = pq.top().second;
+			q.push(pair<int, int>(pq.top().first, pq.top().second));
 			pq.pop();
-			q.push(pair<int, int>(height, weight));
 		}
-
-		while (!q.empty()) {		// 큐에 있는것들에 번호매겨준다
+		int tmp = soon;
+		while (!q.empty()) {		// 큐에 있는것들에 번호매겨준다			
 			for (int i = 0; i < num; i++) {
 				if (grade[i][0] == q.front().first&&grade[i][1] == q.front().second) {
 					grade[i][2] = soon;
-					break;
 				}
 			}
 			q.pop();
+			tmp++;
 		}
-		soon++;
+		soon = tmp;				// pop 된만큼 plus 되있을것이다!
 	}		
+
+	for (int i = 0; i < num; i++) {
+		cout << grade[i][2] << " ";
+	}
 
 	return 0;
 }
