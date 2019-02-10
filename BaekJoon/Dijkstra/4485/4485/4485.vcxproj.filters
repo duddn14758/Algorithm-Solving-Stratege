@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="젤다.cpp">
+    <ClCompile Include="zelda by dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
