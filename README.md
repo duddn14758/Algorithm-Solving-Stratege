@@ -1,1 +1,3 @@
-# Algorithm-Solving-Stratege
+# Algorithm-Solving-Strategy
+##BOJ
+##Algorithm Class
