@@ -139,8 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClCompile Include="젤다 using dijkstra.cpp" />
     <ClCompile Include="젤다.cpp" />
+=======
+    <ClCompile Include="Practice Dijkstra.cpp" />
+    <ClCompile Include="zelda by dijkstra.cpp" />
+>>>>>>> 06796e046acb386ed844c2ceccfc5bd8d98618b5
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
