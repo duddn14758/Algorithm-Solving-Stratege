@@ -34,11 +34,43 @@ void dijkstra(int start) {
 			}
 		}
 	}
-
 }
 
-
 int main() {
+
+	for (int i = 1; i <= number; i++)
+		d[i] = INF;
+
+	v[1].push_back(make_pair(2, 2));
+	v[1].push_back(make_pair(3, 5));
+	v[1].push_back(make_pair(4, 1));
+
+	v[2].push_back(make_pair(1, 2));
+	v[2].push_back(make_pair(3, 3));
+	v[2].push_back(make_pair(4, 2));
+
+	v[3].push_back(make_pair(1, 5));
+	v[3].push_back(make_pair(2, 3));
+	v[3].push_back(make_pair(4, 3));
+	v[3].push_back(make_pair(5, 1));
+	v[3].push_back(make_pair(6, 5));
+
+	v[4].push_back(make_pair(1, 1));
+	v[4].push_back(make_pair(2, 2));
+	v[4].push_back(make_pair(3, 3));
+	v[4].push_back(make_pair(5, 1));
+
+	v[5].push_back(make_pair(3, 1));
+	v[5].push_back(make_pair(4, 1));
+	v[5].push_back(make_pair(6, 2));
+
+	v[6].push_back(make_pair(3, 5));
+	v[6].push_back(make_pair(5, 2));
+	
+	dijkstra(1);
+
+	for (int i = 1; i <= number; i++)
+		cout << d[i] << " ";
 
 	return 0;
 }
