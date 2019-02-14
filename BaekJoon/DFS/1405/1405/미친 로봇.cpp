@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdio.h>
 
 using namespace std;
 
@@ -16,9 +17,9 @@ void DFS(int x, int y, double per,int cnt) {
 	visited[x][y] = true;
 
 	DFS(x + 1, y, per*arr[0], cnt);
-	DFS(x, y - 1, per*arr[1], cnt);
-	DFS(x - 1, y, per*arr[2], cnt);
-	DFS(x, y + 1, per*arr[3], cnt);
+	DFS(x - 1, y, per*arr[1], cnt);
+	DFS(x, y + 1, per*arr[2], cnt);
+	DFS(x, y - 1, per*arr[3], cnt);
 	visited[x][y] = false;
 }
 
@@ -28,9 +29,9 @@ int main() {
 	for (int i = 0; i < 4; i++)
 		arr[i] *= 0.01;
 
-	DFS(16, 16, 1.00, 0);
+	DFS(15, 15, 1.00, 0);
 
-	cout << simple;
+	printf("%.10lf", simple);
 
 	return 0;
 }
