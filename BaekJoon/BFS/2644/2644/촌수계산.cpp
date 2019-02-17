@@ -1,52 +1,65 @@
 #include <iostream>
 #include <vector>
+#include <cstring>
 
 using namespace std;
 
 vector<int> pv[105];
-vector<int> cv[105];
+int cv[105];
+bool visited[105];
 
-int t, st, ed, ans = -1;
+int t, st, ed, ans = 1000000;
 
 void search(int now ,int cnt, int prev) {
+	if (visited[now])
+		return;
+	visited[now] = true;
+	//cout << "now,count - (" << now <<", "<<cnt<<")"<< endl;
+
 	if (now == ed) {
 		ans = cnt;
 		return;
 	}
 
-	if (!pv[cv[now].front()].empty()) {
-		if (cv[now].front() == ed) {		// 부모 일치 확인
-			ans = cnt + 2;
+	if (cv[now]!=0) {
+		//cout << "부모일치 확인\n";
+		if (cv[now] == ed) {		// 부모 일치 확인
+			ans = cnt + 1 < ans ? cnt + 1 : ans;
+			//cout << "일치, return" << endl;
 			return;
 		}
-		for (int i = 0; i < pv[cv[now].front()].size(); i++) {	// 형제탐색
-			if (pv[cv[now].front()][i] == ed) {
-				ans = cnt + 1;
+		//cout << "형제탐색" << endl;
+		for (int i = 0; i < pv[cv[now]].size(); i++) {	// 형제탐색
+			if (pv[cv[now]][i] == ed) {
+				ans = cnt + 2 < ans ? cnt + 2 : ans;
 				return;
 			}			
 		}
-		search(cv[now].front(), cnt + 2, now);
+		search(cv[now], cnt + 1, now);
 	}
+	//cout << "자식탐색" << endl;
 	for (int i = 0; i < pv[now].size(); i++) {
 		if (pv[now][i] == ed) {
-			ans = cnt + 2;
+			ans = cnt + 1 < ans ? cnt + 1 : ans;
 			return;
 		}
-		search(pv[now][i], cnt + 2, now);
+		search(pv[now][i], cnt + 1, now);
 	}
 }
-
 
 int main() {
 	int p, c, n;
 	cin >> t >> st >> ed >> n;
+	memset(cv, 0, 105);
 	for (int i = 0; i < n; i++) {
-		cin >> p >> c;
-	
+		cin >> p >> c;	
 		pv[p].push_back(c);
-		cv[c].push_back(p);
+		cv[c] = p;	// 거꾸로
 	}
-	search(st, 0,0);
+
+	if (p == c) ans = 0;
+	else search(st, 0,0);
+	if (ans == 1000000) ans = -1;
 	cout << ans;
 
 	return 0;
