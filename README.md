@@ -1,5 +1,5 @@
 # Algorithm-Solving-Strategy
-##BOJ
-##Algorithm Class
-##ret
-###2206
+## BOJ
+## Algorithm Class
+## ret
+### 2206
