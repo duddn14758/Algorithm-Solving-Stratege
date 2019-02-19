@@ -1,5 +1,7 @@
 # Algorithm-Solving-Strategy
-## BOJ
-## Algorithm Class
-## ret
-### 2206
+### BOJ
+#### AlgGames, BackTracking, BFS, Brute Force, Default, DFS, Dijkstra, Dynamic Programming, Math, Priority Queue, Sort
+### Algorithm Class
+#### 2018 algorithm class
+### ret
+#### 2206
