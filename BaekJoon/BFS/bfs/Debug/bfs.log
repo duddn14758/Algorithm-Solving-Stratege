@@ -1,3 +1,2 @@
 ﻿  2589.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\bfs\bfs\2589.cpp(17): warning C4806: '==': 안전하지 않은 연산입니다. 'bool' 형식의 값('char' 형식으로 확장)이 주어진 상수와 같을 수 없습니다.
-  bfs.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\BFS\Debug\bfs.exe
+  bfs.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\BFS\Debug\bfs.exe

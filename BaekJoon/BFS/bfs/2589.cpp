@@ -9,12 +9,12 @@ using namespace std;
 // 구역내 한 점에서 가장 먼 곳을 찾아 DFS
 // 앞의 과정을 통해 구한 가장 먼곳을 기준으로 그곳으로부터 가장 먼 곳을 찾는다.
 
-bool visited[51][51];
+bool visited[55][55];
 int n, m, cnt=0;
-char land[51][51];
+char land[55][55];
 
 bool inBoundary(int x, int y) {
-	if (x<0 || y<0 || x>n - 1 || y>m - 1||visited[x][y]||!land[x][y]=='L')
+	if (x<0 || y<0 || x>n - 1 || y>m - 1||visited[x][y]||land[x][y]=='W')
 		return 0;
 	return 1;
 }
@@ -23,6 +23,16 @@ void Init() {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < m; j++)
 			visited[i][j] = 0;
+}
+
+void Print() {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cout << visited[i][j] << " ";
+		}
+		cout << endl;
+	}
+	cout << endl;
 }
 
 int bfs(int x,int y) {
@@ -35,38 +45,50 @@ int bfs(int x,int y) {
 	visited[x][y] = 1;
 	while (!q.empty()) {		// 가장 먼 곳의 좌표를 구함
 		now = q.front();
-		cout << now.first.first << " " << now.first.second << endl;
 		q.pop();
 		far_point = now.first;
-		if (inBoundary(x + 1, y)) { 
-			visited[x + 1][y] = 1;
-			q.push(make_pair(make_pair(x + 1, y), now.second + 1)); 
+		//Print();
+		if (inBoundary(now.first.first + 1, now.first.second)) { 
+			visited[now.first.first + 1][now.first.second] = 1;
+			q.push(make_pair(make_pair(now.first.first + 1, now.first.second), now.second + 1));
 		}
-		if (inBoundary(x - 1, y)) {
-			visited[x - 1][y] = 1;
-			q.push(make_pair(make_pair(x - 1, y), now.second + 1));
+		if (inBoundary(now.first.first - 1, now.first.second)) {
+			visited[now.first.first - 1][now.first.second] = 1;
+			q.push(make_pair(make_pair(now.first.first - 1, now.first.second), now.second + 1));
 		}
-		if (inBoundary(x, y + 1)) {
-			visited[x][y + 1]=1;
-			q.push(make_pair(make_pair(x, y + 1), now.second + 1));
+		if (inBoundary(now.first.first, now.first.second + 1)) {
+			visited[now.first.first][now.first.second + 1]=1;
+			q.push(make_pair(make_pair(now.first.first, now.first.second + 1), now.second + 1));
 		}
-		if (inBoundary(x, y - 1)) {
-			visited[x][y - 1]=1;
-			q.push(make_pair(make_pair(x, y - 1), now.second + 1));
+		if (inBoundary(now.first.first, now.first.second - 1)) {
+			visited[now.first.first][now.first.second - 1]=1;
+			q.push(make_pair(make_pair(now.first.first, now.first.second - 1), now.second + 1));
 		}
 	}
 	Init();
 
 	q.push(make_pair(far_point, 0));
+	visited[far_point.first][far_point.second];
 	while (!q.empty()) {	// 구한 좌표에서의 가장 먼 곳의 거리를 구함
 		now = q.front();
 		q.pop();
-		visited[x][y] = 1;
 		far_length = now.second;
-		if (inBoundary(x + 1, y)) q.push(make_pair(make_pair(x + 1, y), now.second + 1));
-		if (inBoundary(x - 1, y)) q.push(make_pair(make_pair(x - 1, y), now.second + 1));
-		if (inBoundary(x, y + 1)) q.push(make_pair(make_pair(x, y + 1), now.second + 1));
-		if (inBoundary(x, y - 1)) q.push(make_pair(make_pair(x, y - 1), now.second + 1));
+		if (inBoundary(now.first.first + 1, now.first.second)) {
+			visited[now.first.first + 1][now.first.second] = 1;
+			q.push(make_pair(make_pair(now.first.first + 1, now.first.second), now.second + 1));
+		}
+		if (inBoundary(now.first.first - 1, now.first.second)) {
+			visited[now.first.first - 1][now.first.second] = 1;
+			q.push(make_pair(make_pair(now.first.first - 1, now.first.second), now.second + 1));
+		}
+		if (inBoundary(now.first.first, now.first.second + 1)) {
+			visited[now.first.first][now.first.second + 1] = 1;
+			q.push(make_pair(make_pair(now.first.first, now.first.second + 1), now.second + 1));
+		}
+		if (inBoundary(now.first.first, now.first.second - 1)) {
+			visited[now.first.first][now.first.second - 1] = 1;
+			q.push(make_pair(make_pair(now.first.first, now.first.second - 1), now.second + 1));
+		}
 	}
 	return far_length;	
 }
@@ -74,7 +96,7 @@ int bfs(int x,int y) {
 int main() {
 	cin >> n >> m;
 	int length, max_length = 0;
-	char buf[51];
+	char buf[55];
 	for (int i = 0; i < n; i++) {
 		cin >> buf;
 		for (int j = 0; j < m; j++) {
@@ -87,7 +109,7 @@ int main() {
 			// isitLand?
 			// getMaxLengthToThatPoint
 			// getMaxLengthPoint
-			if (visited[i][j]) continue;
+			if (land[i][j]=='W'||visited[i][j]) continue;
 			length = bfs(i, j);
 			max_length = max_length > length ? max_length : length;
 		}
