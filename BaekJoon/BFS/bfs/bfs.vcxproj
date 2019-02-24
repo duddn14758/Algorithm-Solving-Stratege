@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{4B645716-DFB3-4F9C-9B5D-7FA90348919E}</ProjectGuid>
+    <ProjectGuid>{06B53275-C02C-4E45-B960-828963C99040}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>bfs</RootNamespace>
+    <RootNamespace>BFS</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

@@ -10,11 +10,11 @@ using namespace std;
 // 앞의 과정을 통해 구한 가장 먼곳을 기준으로 그곳으로부터 가장 먼 곳을 찾는다.
 
 bool visited[55][55];
-int n, m, cnt=0;
+int n, m, cnt = 0;
 char land[55][55];
 
 bool inBoundary(int x, int y) {
-	if (x<0 || y<0 || x>n - 1 || y>m - 1||visited[x][y]||land[x][y]=='W')
+	if (x<0 || y<0 || x>n - 1 || y>m - 1 || visited[x][y] || land[x][y] == 'W')
 		return 0;
 	return 1;
 }
@@ -35,11 +35,11 @@ void Print() {
 	cout << endl;
 }
 
-int bfs(int x,int y) {
-	queue<pair<pair<int, int>,int>> q;
-	pair<pair<int, int>,int> now;
+int bfs(int x, int y) {
+	queue<pair<pair<int, int>, int>> q;
+	pair<pair<int, int>, int> now;
 	pair<int, int> far_point;
-	int far_length=0;
+	int far_length = 0;
 
 	q.push({ { x,y },0 });
 	visited[x][y] = 1;
@@ -48,7 +48,7 @@ int bfs(int x,int y) {
 		q.pop();
 		far_point = now.first;
 		//Print();
-		if (inBoundary(now.first.first + 1, now.first.second)) { 
+		if (inBoundary(now.first.first + 1, now.first.second)) {
 			visited[now.first.first + 1][now.first.second] = 1;
 			q.push(make_pair(make_pair(now.first.first + 1, now.first.second), now.second + 1));
 		}
@@ -57,11 +57,11 @@ int bfs(int x,int y) {
 			q.push(make_pair(make_pair(now.first.first - 1, now.first.second), now.second + 1));
 		}
 		if (inBoundary(now.first.first, now.first.second + 1)) {
-			visited[now.first.first][now.first.second + 1]=1;
+			visited[now.first.first][now.first.second + 1] = 1;
 			q.push(make_pair(make_pair(now.first.first, now.first.second + 1), now.second + 1));
 		}
 		if (inBoundary(now.first.first, now.first.second - 1)) {
-			visited[now.first.first][now.first.second - 1]=1;
+			visited[now.first.first][now.first.second - 1] = 1;
 			q.push(make_pair(make_pair(now.first.first, now.first.second - 1), now.second + 1));
 		}
 	}
@@ -90,7 +90,7 @@ int bfs(int x,int y) {
 			q.push(make_pair(make_pair(now.first.first, now.first.second - 1), now.second + 1));
 		}
 	}
-	return far_length;	
+	return far_length;
 }
 
 int main() {
@@ -109,7 +109,7 @@ int main() {
 			// isitLand?
 			// getMaxLengthToThatPoint
 			// getMaxLengthPoint
-			if (land[i][j]=='W'||visited[i][j]) continue;
+			if (land[i][j] == 'W' || visited[i][j]) continue;
 			length = bfs(i, j);
 			max_length = max_length > length ? max_length : length;
 		}
