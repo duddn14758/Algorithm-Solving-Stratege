@@ -1,1 +1,5 @@
-﻿  BruteForce.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\BruteForce\Debug\BruteForce.exe
+﻿  15686.cpp
+c:\users\youngwoo\desktop\알고리즘\baekjoon\bruteforce\bruteforce\15686.cpp(28): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\bruteforce\bruteforce\15686.cpp(46): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\bruteforce\bruteforce\15686.cpp(59): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  BruteForce.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\BruteForce\Debug\BruteForce.exe
