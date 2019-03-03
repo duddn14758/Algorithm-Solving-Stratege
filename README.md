@@ -5,4 +5,4 @@
 #### 2018 algorithm class
 ## SW Expert Academy
 ## BOJ ret
-#### 2206
+#### 2206, 11066(dp)
