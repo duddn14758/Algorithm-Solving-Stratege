@@ -1,2 +1,4 @@
-﻿  1015.cpp
-  Array.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\Array\Debug\Array.exe
+﻿  5052-2.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\array\array\5052-2.cpp(28): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\array\array\5052-2.cpp(18): warning C4101: 'k' :참조되지 않은 지역 변수입니다.
+  Array.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Array\Debug\Array.exe

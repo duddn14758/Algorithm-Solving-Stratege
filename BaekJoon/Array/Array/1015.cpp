@@ -3,26 +3,27 @@
 #include <queue>
 #include <algorithm>
 
+// 수열 정렬
 using namespace std;
 
 int arr[51];
-int arrb[51];
-int arrc[1001];
+vector <pair<int,int>> v;
 
 int main() {
 	int n;
 	cin >> n;
 	for (int i = 0; i < n; i++) {
 		cin >> arr[i];
-		arrb[i] = arr[i];
+		v.push_back({ arr[i],i });
 	}
-	sort(arrb, arrb + n);
-	
-	for (int i = 0; i < n; i++)
-		arrc[arrb[i]] = i;
+	sort(v.begin(), v.end());
 
 	for (int i = 0; i < n; i++) {
-		cout << arrc[arr[i]] << " ";
+		arr[v[i].second] = i;
+	}
+
+	for (int i = 0; i < n; i++) {
+		cout << arr[i] << " ";
 	}
 
 	return 0;
