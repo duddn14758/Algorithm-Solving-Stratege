@@ -3,7 +3,7 @@
 #include <string>
 #include <algorithm>
 
-// 전화번호 목록
+// 전화번호 목록 by ascending sort
 using namespace std;
 
 string s[10001];
