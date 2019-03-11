@@ -16,7 +16,7 @@ int dy[] = { 0,1,0,-1 };
 machine mc;
 
 bool inBoundary(int x, int y) {
-	if (x<0 || y<0 || x>n - 1 || y>n - 1)
+	if (x<0 || y<0 || x>n - 1 || y>m - 1)
 		return 0;
 	return 1;
 }
@@ -65,8 +65,6 @@ int run() {
 
 int main() {
 	cin >> n >> m;
-	int stx,sty,stdir;
-
 	cin >> mc.x >> mc.y >> mc.dir;
 
 	for (int i = 0; i < n; i++)

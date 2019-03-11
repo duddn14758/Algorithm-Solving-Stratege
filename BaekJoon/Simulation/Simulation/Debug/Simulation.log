@@ -1,5 +1,5 @@
 ﻿  14053.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'stdir' :참조되지 않은 지역 변수입니다.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'sty' :참조되지 않은 지역 변수입니다.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'stx' :참조되지 않은 지역 변수입니다.
-  Simulation.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Simulation\Debug\Simulation.exe
+c:\users\youngwoo\desktop\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'stdir' :참조되지 않은 지역 변수입니다.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'sty' :참조되지 않은 지역 변수입니다.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\simulation\simulation\14053.cpp(68): warning C4101: 'stx' :참조되지 않은 지역 변수입니다.
+  Simulation.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\Simulation\Debug\Simulation.exe
