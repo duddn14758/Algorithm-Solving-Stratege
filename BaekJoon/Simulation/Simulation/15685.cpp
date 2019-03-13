@@ -58,10 +58,10 @@ int main() {
 	}*/
 	for (int i = 0; i < v.size(); i++) {
 		bool r = 0, l = 0, b = 0;
-		for (int j = 0; j < s[i].size(); j++) {
+		for (int j = 0; j < s[v[i].first].size(); j++) {
 			if (v[i].second + 1 == s[i][j]) r = 1;
 		}
-		for (int j = 0; j < s[i + 1].size(); j++) {
+		for (int j = 0; j < s[v[i].first + 1].size(); j++) {
 			if (v[i].second == s[i + 1][j]) l = 1;
 			if (v[i].second + 1 == s[i + 1][j]) b = 1;
 		}
