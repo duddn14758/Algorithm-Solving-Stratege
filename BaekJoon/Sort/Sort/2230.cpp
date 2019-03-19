@@ -16,7 +16,7 @@ int main() {
 	}
 	sort(v.begin(), v.end());
 
-	int pt1 = 0, pt2 = 1,min_size=98765432;
+	int pt1 = 0, pt2 = 0,min_size=987654321;
 	
 	while (pt1 < v.size()) {
 		if (pt2 == v.size()-1) {
