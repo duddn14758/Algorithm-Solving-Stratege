@@ -1,45 +1,19 @@
-#include <vector>
-#include <stdio.h>
-#include <algorithm>
+#include<cstdio>
+#include<algorithm>
 
-// 수 고르기
+// 수고르기 - 풀필요없는문제(정답이 존재함에도 불구하고 실제정답은 틀려지며 
+// 설명과는 맞지않는 배열을선언해도 정답이뜬다)
 using namespace std;
-
-vector<int> v;
-
+int n, m, a[100000], r = 2e9;
 int main() {
-	int n, m, buf;
-	scanf("%d %d", &n, &m);
-	for (int i = 0; i < n; i++) {
-		scanf("%d", &buf);
-		v.push_back(buf);
+	scanf("%d%d", &n, &m);
+	for (int i = 0; i < n; i++) scanf("%d", a + i);
+	sort(a, a + n);
+	int i = 0, j = 0;
+	while (j < n) {
+		if (a[j] - a[i] < m) j++;
+		else r = min(r, a[j] - a[i++]);
 	}
-	sort(v.begin(), v.end());
-
-	int pt1 = 0, pt2 = 0,min_size=987654321;
-	
-	while (pt1 < v.size()) {
-		if (pt2 == v.size()-1) {
-			while (v[pt2]-v[pt1]>=m) {
-				min_size = min_size < v[pt2] - v[pt1] ? min_size : v[pt2] - v[pt1];
-				pt1++;
-			}
-			break;
-		}
-
-		if (v[pt2] - v[pt1] < m) {
-			pt2++;
-		}
-		else if (v[pt2] - v[pt1] > m) {
-			min_size = min_size < v[pt2] - v[pt1] ? min_size : v[pt2] - v[pt1];
-			pt1++;
-		}
-		else {
-			min_size = m;
-			break;
-		}
-	}
-	printf("%d", min_size);
-
+	printf("%d", r);
 	return 0;
 }
