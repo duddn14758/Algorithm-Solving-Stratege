@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <queue>
 
 // 혁진이의 프로그램 검증
 using namespace std;
@@ -15,13 +16,11 @@ public:
 	int y;
 	int mem;
 	int dir;		// 0: 오른쪽 1:아래 2:왼쪽 3: 위쪽
-	int dur;
 	pt() {
 		this->x = 0;
 		this->y = 0;
 		this->mem = 0;
 		this->dir = 0;
-		this->dur = 0;
 	}
 };
 
@@ -74,10 +73,65 @@ pt controll(pt p) {
 
 bool simul() {
 	pt p= pt();
-	while (p.dur++ <= 10000) {
-		p = controll(p);
-		if (arr[p.x][p.y] == '@') return true;
-		if (visit[p.x][p.y] > 5000) return false;
+	queue <pt> q;
+	q.push(p);
+	while (!q.empty()) {
+		pt cur = q.front();
+		q.pop();
+		//p = controll(p);
+		visit[cur.x][cur.y]++;
+		char ch = arr[cur.x][cur.y];
+		if (ch >= '0'&&ch <= '9') {
+			cur.mem = ch - '0';
+		}
+		else {
+			switch (ch) {
+			case '<':
+				cur.dir = 2;
+				break;
+			case '^':
+				cur.dir = 3;
+				break;
+			case '>':
+				cur.dir = 0;
+				break;
+			case 'v':
+				cur.dir = 1;
+				break;
+			case '_':
+				if (cur.mem == 0) cur.dir = 0;
+				else cur.dir = 2;
+				break;
+			case '|':
+				if (cur.mem == 0) cur.dir = 1;
+				else cur.dir = 3;
+				break;
+			case '?':
+				for (int i = 0; i < 4; i++) {
+					int nx = (cur.x + dx[i] + r);
+					int ny = (cur.y + dy[i] + c);
+					pt tmp=pt();
+					tmp.x = nx;
+					tmp.y = ny;
+					q.push(tmp);
+				}
+				continue;
+				//p.dir = rand() % 4;
+				break;
+			case '+':
+				cur.mem = (cur.mem + 1) % 16;
+				break;
+			case '-':
+				cur.mem = (cur.mem + 15) % 16;
+				break;
+			case '@':
+				return true;
+			default:
+				break;
+			}
+		}	// 기능
+		q.push(cur);
+		if (visit[cur.x][cur.y] >= 500) return false;
 	}
 	return false;
 }
