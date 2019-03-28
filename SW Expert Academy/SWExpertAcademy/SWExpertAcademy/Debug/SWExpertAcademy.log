@@ -1,2 +1,3 @@
 ﻿  7258.cpp
-  SWExpertAcademy.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\SW Expert Academy\SWExpertAcademy\Debug\SWExpertAcademy.exe
+c:\users\duddn\onedrive\바탕 화면\알고리즘\sw expert academy\swexpertacademy\swexpertacademy\7258.cpp(141): warning C4715: 'simul': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  SWExpertAcademy.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\Debug\SWExpertAcademy.exe

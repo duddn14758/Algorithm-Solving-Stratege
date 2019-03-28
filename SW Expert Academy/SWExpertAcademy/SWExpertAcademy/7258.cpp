@@ -77,6 +77,7 @@ bool simul() {
 	q.push(p);
 	while (!q.empty()) {
 		pt cur = q.front();
+		//cout << cur.x << ", " << cur.y << endl;
 		q.pop();
 		//p = controll(p);
 		visit[cur.x][cur.y]++;
@@ -107,12 +108,14 @@ bool simul() {
 				else cur.dir = 3;
 				break;
 			case '?':
-				for (int i = 0; i < 4; i++) {
-					int nx = (cur.x + dx[i] + r);
-					int ny = (cur.y + dy[i] + c);
+				for (int i = 0; i < 4; i++) {	// ?일때는 move까지 여기서
+					int nx = (cur.x + dx[i] + r) % r;
+					int ny = (cur.y + dy[i] + c) % c;
 					pt tmp=pt();
 					tmp.x = nx;
 					tmp.y = ny;
+					tmp.mem = cur.mem;
+					tmp.dir = i;
 					q.push(tmp);
 				}
 				continue;
@@ -130,10 +133,11 @@ bool simul() {
 				break;
 			}
 		}	// 기능
+		cur.x = (cur.x + dx[cur.dir] + r) % r;
+		cur.y = (cur.y + dy[cur.dir] + c) % c;
 		q.push(cur);
 		if (visit[cur.x][cur.y] >= 500) return false;
 	}
-	return false;
 }
 
 void Init() {
@@ -147,12 +151,15 @@ int main() {
 	cin >> t;
 	for (int i = 1; i <= t; i++) {
 		cin >> r >> c;
+		bool Can = 0;
 		for (int j = 0; j < r; j++) {
 			cin >> arr[j];
+			for(int k=0;k<c;k++)
+				if (arr[j][k] == '@') Can = 1;
 		}
 		cout << "#" << i << " ";
-		if (simul()) cout << "YES" << endl;
-		else cout << "NO" << endl;
+		if(!Can||!simul()) cout << "NO" << endl;
+		else cout << "YES" << endl;
 		Init();
 	}
 
