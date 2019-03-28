@@ -1,2 +1,4 @@
-﻿  1867.cpp
-  Graph.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Graph\Debug\Graph.exe
+﻿  6118.cpp
+c:\users\youngwoo\desktop\알고리즘\baekjoon\graph\graph\6118.cpp(10): warning C4101: 'm' :참조되지 않은 지역 변수입니다.
+c:\users\youngwoo\desktop\알고리즘\baekjoon\graph\graph\6118.cpp(10): warning C4101: 'n' :참조되지 않은 지역 변수입니다.
+  Graph.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\Graph\Debug\Graph.exe
