@@ -1,4 +1,2 @@
 ﻿  1867.cpp
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\1867.cpp(38): error C2065: 'c': 선언되지 않은 식별자입니다.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\1867.cpp(38): error C2065: 'l': 선언되지 않은 식별자입니다.
-c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\1867.cpp(39): error C2059: 구문 오류: ']'
+  Graph.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Graph\Debug\Graph.exe
