@@ -1,4 +1,5 @@
-﻿  6118.cpp
-c:\users\youngwoo\desktop\알고리즘\baekjoon\graph\graph\6118.cpp(10): warning C4101: 'm' :참조되지 않은 지역 변수입니다.
-c:\users\youngwoo\desktop\알고리즘\baekjoon\graph\graph\6118.cpp(10): warning C4101: 'n' :참조되지 않은 지역 변수입니다.
-  Graph.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\Graph\Debug\Graph.exe
+﻿  3640.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\3640.cpp(27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\3640.cpp(38): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\graph\graph\3640.cpp(43): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Graph.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Graph\Debug\Graph.exe
