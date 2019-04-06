@@ -5,7 +5,7 @@
 
 // 다리 만들기
 using namespace std;
-int n, shortcut = 100;
+int n, shortcut = 200;
 bool map[101][101];
 bool visited[101][101];
 
@@ -56,7 +56,7 @@ int bfs(int x, int y) {
 			}			
 		}
 	}
-	return 100;
+	return 200;
 }
 
 int main() {
