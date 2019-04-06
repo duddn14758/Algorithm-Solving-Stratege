@@ -28,7 +28,7 @@ void draw(int x, int y) {
 		for (int i = 0; i < 4; i++) {
 			int xx = now.first + dx[i];
 			int yy = now.second + dy[i];
-			if (inBoundary(xx, yy) && !visited[xx][yy]) {
+			if (inBoundary(xx, yy) && !visited[xx][yy]&&ice[xx][yy]) {
 				visited[xx][yy] = 1;
 				q.push({ xx,yy });
 			}
@@ -61,11 +61,13 @@ void yearLasting() {
 			if (ice[i][j]) {
 				int cnt = 0;
 				for (int k = 0; k < 4; k++)
-					if (inBoundary(i+dx[k],j+dy[k])&&!ice[i + dx[k]][j + dy[k]]) cnt++;
+					if (inBoundary(i+dx[k],j+dy[k])&&!ice[i + dx[k]][j + dy[k]]&&!visited[i+dx[k]][j+dy[k]]) cnt++;
 				ice[i][j] -= cnt;
 				if (ice[i][j] < 0) ice[i][j] = 0;
+				visited[i][j] = 1;
 			}
 		}
+	Init();
 }
 
 void Print() {
@@ -86,15 +88,13 @@ int main() {
 	int cnt = 0;
 
 	while (isSeperate() == 1) {
-		cout << isSeperate() << endl;
-		Print();
 		yearLasting();
+		//Print();
 		cnt++;
 	}
 
 	if (isSeperate()>0) cout << cnt;
 	else cout << 0;
-
 
 	return 0;
 }
