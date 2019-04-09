@@ -5,4 +5,4 @@
 #### 2018 algorithm class
 ## SW Expert Academy
 ## BOJ ret
-#### 2206, 11066(dp), 1867(vertex cover-graph), 11657(SPFA-shortest pass faster algorithm)
+#### 2206, 11066(dp), 1867(vertex cover-graph), 11657(SPFA-shortest pass faster algorithm), 7579(dp)

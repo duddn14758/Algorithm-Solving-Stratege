@@ -1,2 +1,8 @@
-﻿  2448.cpp
+﻿  16926.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\sort\sort\16926.cpp(25): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\sort\sort\16926.cpp(33): warning C4553: '==': 식의 결과가 사용되지 않습니다. '='을(를) 의도했습니까?
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\sort\sort\16926.cpp(38): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\sort\sort\16926.cpp(42): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
   Sort.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\Sort\Debug\Sort.exe
