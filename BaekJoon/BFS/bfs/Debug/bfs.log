@@ -1,3 +1,3 @@
-﻿  9372.cpp
-c:\users\youngwoo\desktop\알고리즘\baekjoon\bfs\bfs\9372.cpp(21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  BFS.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\BFS\Debug\BFS.exe
+﻿  1938.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\bfs\bfs\1938.cpp(81): warning C4101: 'd_state' :참조되지 않은 지역 변수입니다.
+  BFS.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\BFS\Debug\BFS.exe
