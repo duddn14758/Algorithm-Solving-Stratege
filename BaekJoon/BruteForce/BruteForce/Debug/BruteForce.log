@@ -1,2 +1,3 @@
-﻿  12100.cpp
+﻿  14891.cpp
+c:\users\duddn\onedrive\바탕 화면\알고리즘\baekjoon\bruteforce\bruteforce\14891.cpp(18): warning C4101: 'rr' :참조되지 않은 지역 변수입니다.
   BruteForce.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\BaekJoon\BruteForce\Debug\BruteForce.exe
