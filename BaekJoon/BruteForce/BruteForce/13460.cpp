@@ -25,6 +25,7 @@ bool inBoundary(int x, int y) {
 }
 
 void swap(pt a, pt b) {
+	if (a.x == b.x&&a.y == b.y) return;
 	char tmp = map[a.x][a.y];
 	map[a.x][a.y] = map[b.x][b.y];
 	map[b.x][b.y] = tmp;
@@ -49,36 +50,65 @@ int bfs(pt r,pt b) {
 		pt red = q.front().first.first;
 		pt blue = q.front().first.second;
 		int cnt = q.front().second;
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < m; j++)
+		for (int i = 0; i < n; i++) {	// 판 세팅
+			for (int j = 0; j < m; j++) {
 				if (map[i][j] == 'R') swap(red, pt(i, j));
 				else if (map[i][j] == 'B') swap(blue, pt(i, j));
-
+				cout << map[i][j];
+			}
+			cout << endl;
+		}
+		cout << endl;
 		cnt++;
 		q.pop();
-		cout << red.x << ", " << red.y << endl;
-		cout << blue.x << ", " << blue.y << endl;
-		cout << cnt << endl;
+		
+		for (int i = 0; i < 4; i++) {	// 4방향으로 굴리기
+			bool redin = 0, bluein = 0;
+			for (int j = 0; j < n; j++)	// 판 세팅
+				for (int k = 0; k < m; k++)
+					if (map[j][k] == 'R') swap(red, pt(j,k));
+					else if (map[i][j] == 'B') swap(blue,pt(j, k));
+			pt rred = move(red, i);		// red굴림
+			if (map[rred.x][rred.y] == 'O') {
+				map[red.x][red.y] = '.';
+				redin = 1;
+			}
+			else {
+				map[red.x][red.y] = '.';
+				map[rred.x][rred.y] = 'R';
+			}
+			pt bblue = move(blue, i);		
+			if (map[bblue.x][bblue.y] == 'O') {
+				continue;
+			}
+			else {
+				map[blue.x][blue.y] = '.';
+				map[bblue.x][bblue.y] = 'B';
+			}
+			
+			pt rrred = move(rred, i);
+			if (!redin&&map[rrred.x][rrred.y] == 'O') return cnt;
+			else {
+				map[rred.x][rred.y] = '.';
+				map[rrred.x][rrred.y] = 'R';
+			}
+			pt bbblue = move(bblue, i);
+			if (map[bbblue.x][bbblue.y] == 'O') {
+				continue;
+			}
+			else {
+				map[bblue.x][bblue.y] = '.';
+				map[bbblue.x][bbblue.y] = 'B';
+			}
 
-		for (int i = 0; i < 4; i++) {	
-			map[red.x][red.y] = '.';
-			red = move(red, i);
-			map[red.x][red.y] = 'R';
-			if (map[red.x][red.y]=='O') return cnt;
-			map[blue.x][blue.y] = '.';
-			blue = move(blue, i);		
-			map[blue.x][blue.y] = 'B';
-			if (map[blue.x][blue.y] == 'O') continue;
-			map[red.x][red.y] = '.';
-			red = move(red, i);
-			map[red.x][red.y] = 'R';
-			if (map[red.x][red.y] == 'O') return cnt;
-			map[blue.x][blue.y] = '.';
-			blue = move(blue, i);
-			map[blue.x][blue.y] = 'B';
-			if (map[blue.x][blue.y] == 'O') continue;
+			if (redin&&!bluein) {
+				return cnt;
+			}
+			map[rrred.x][rred.y] = 'R';
+			
+
 			if (cnt < 10) {
-				q.push({ {red,blue},cnt});
+				q.push({ {rrred,bbblue},cnt});
 			}
 		}
 	}
@@ -102,7 +132,7 @@ int main() {
 				ball[1].y = j;
 			}
 		}
-	}	
+	}
 	cout<<bfs(ball[0], ball[1]);
 
 	return 0;
