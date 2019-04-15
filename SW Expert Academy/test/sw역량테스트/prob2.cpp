@@ -104,43 +104,63 @@ int bfs3(int a,int b,int c) {
 	return -1;
 }
 
+int bfs(vector<int> a) {
+	queue<pair<Pii, int>> q;
+	for (int i = 0; i < a.size(); i++) {
+		q.push({ v[a[i]],0 });
+		visited[v[a[i]].first][v[a[i]].second] = 1;
+	}
+
+	if (isClear()) return 0;
+	while (!q.empty()) {
+		Pii now = q.front().first;
+		int cnt = q.front().second;
+		q.pop();
+		for (int i = 0; i < 4; i++) {
+			int xx = now.first + dx[i];
+			int yy = now.second + dy[i];
+
+			if (inBoundary(xx, yy) && !visited[xx][yy] && arr[xx][yy] != 1) {
+				q.push({ {xx,yy},cnt + 1 });
+				visited[xx][yy] = 1;
+				if (isClear()) return cnt + 1;
+			}
+		}
+	}
+	return -1;
+}
+
 void Init() {
 	for (int i = 0; i < n; i++)
 		for (int j = 0; j < n; j++)
 			visited[i][j] = 0;
 }
 
+void dfs(vector<int> a, int pt,int cnt) {	
+	//if (pt >= v.size()) return;
+	if (a.size() != cnt) {
+		for (int i = pt; i < v.size(); i++) {
+			a.push_back(i);
+			dfs(a, i + 1, cnt);
+			a.erase(a.begin()+a.size()-1);
+		}
+	}
+	else {				
+		ans.push_back(bfs(a));
+		Init();
+	}
+}
+
 int main() {
-	int t,min_num;
-	cin >> t;
-	while (t-- > 0) {
+	int min_num;
 		cin >> n >> m;
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++) {
 				cin >> arr[i][j];
 				if (arr[i][j] == 2) v.push_back({ i,j });
 			}
-		if (m == 1) {
-			for (int i = 0; i < v.size(); i++) {
-				ans.push_back(bfs1(i));
-				Init();
-			}
-		}
-		else if (m == 2) {
-			for(int i=0;i<v.size();i++)
-				for (int j = i+1; j < v.size(); j++) {
-					ans.push_back(bfs2(i, j));
-					Init();
-				}
-		}
-		else {
-			for (int i = 0; i < v.size(); i++)
-				for (int j = i + 1; j < v.size(); j++) 
-					for (int k = j + 1; k < v.size(); k++) {
-						ans.push_back(bfs3(i, j,k));
-						Init();	
-					}
-		}
+		vector<int> a;
+		dfs(a, 0, m);
 		sort(ans.begin(), ans.end());
 		if (ans[ans.size() - 1] == -1) min_num = -1;
 		else {
@@ -154,8 +174,7 @@ int main() {
 		v.clear();
 		ans.clear();
 
-		cout << min_num << endl;
-	}
+		cout << min_num;
 
 	return 0;
 }
