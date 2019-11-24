@@ -1,5 +1,5 @@
 ﻿  HashChain.cpp
-D:\workspace\Algorithm\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,17): warning C4101: 'price' :참조되지 않은 지역 변수입니다.
-D:\workspace\Algorithm\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,12): warning C4101: 'pid' :참조되지 않은 지역 변수입니다.
-D:\workspace\Algorithm\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,6): warning C4101: 'area' :참조되지 않은 지역 변수입니다.
-  LinkedTest.vcxproj -> D:\workspace\Algorithm\PseudoCode\LinkedTest\Debug\LinkedTest.exe
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,17): warning C4101: 'price' :참조되지 않은 지역 변수입니다.
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,12): warning C4101: 'pid' :참조되지 않은 지역 변수입니다.
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\PseudoCode\LinkedTest\LinkedTest\HashChain.cpp(40,6): warning C4101: 'area' :참조되지 않은 지역 변수입니다.
+  LinkedTest.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\PseudoCode\LinkedTest\Debug\LinkedTest.exe
