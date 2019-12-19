@@ -73,7 +73,7 @@ static bool run()
 int main() {
 	int TC, MARK;
 
-	//freopen("input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 
 	setbuf(stdout, NULL);
 	scanf("%d %d", &TC, &MARK);

@@ -147,7 +147,7 @@ int recommend(int uid) {
 	}
 	//printf("max area\n");
 
-	TN *bestPackage;		// bestPackage설정 시 node 자체를 설정
+	TN *bestPackage=NULL;		// bestPackage설정 시 node 자체를 설정
 	int i;
 	for (i = 0; i < maxAreaNum; i++) {
 		if (ht[maxArea[i]].heap_size > 0) {
