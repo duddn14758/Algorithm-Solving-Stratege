@@ -20,14 +20,14 @@ void init() {
 	head = 0;
 }
 
-void push(int n) {
+void push(int n) {	// 0일때
 	cntarr[n] = ++cnt;
 	if (!point) head = n;
 	buf[point++%5] = n;	
 	if (point > 5) head = buf[point % 5];
 }
 
-int cal(int n) {	
+int cal(int n) {	// 1일때
 	int sum = 0;
 	for (int i = 0; i < 5&&i<point; i++) {
 		sum += (n-buf[i]);	
@@ -40,7 +40,7 @@ int cal(int n) {
 int main() {
 	int TC, N;
 	int now;
-	freopen("input.txt", "r", stdin);
+	//freopen("input.txt", "r", stdin);
 	scanf("%d", &TC);
 	for (int k = 1; k <= TC; k++) {
 		init();
