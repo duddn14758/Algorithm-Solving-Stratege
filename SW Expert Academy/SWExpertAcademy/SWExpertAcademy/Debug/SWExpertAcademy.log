@@ -1,8 +1,10 @@
-﻿  9088.cpp
-C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9088.cpp(23,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  9232.cpp
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9232.cpp(16,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
-C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9088.cpp(26,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9232.cpp(31,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
-C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9088.cpp(28,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9232.cpp(34,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
+C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\SWExpertAcademy\9232.cpp(38,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
   SWExpertAcademy.vcxproj -> C:\Users\duddn\OneDrive\바탕 화면\알고리즘\SW Expert Academy\SWExpertAcademy\Debug\SWExpertAcademy.exe
