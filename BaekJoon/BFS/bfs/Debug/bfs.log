@@ -1,12 +1,6 @@
-﻿  1613.cpp
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(43,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(61,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(84,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+﻿  16234.cpp
+D:\workspace\Algorithm\BaekJoon\BFS\BFS\16234.cpp(110,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(86,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(90,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
-D:\workspace\Algorithm\BaekJoon\BFS\BFS\1613.cpp(92,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+D:\workspace\Algorithm\BaekJoon\BFS\BFS\16234.cpp(113,1): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\ucrt\stdio.h(1274): message : 'scanf' 선언을 참조하십시오.
   BFS.vcxproj -> D:\workspace\Algorithm\BaekJoon\BFS\Debug\BFS.exe
