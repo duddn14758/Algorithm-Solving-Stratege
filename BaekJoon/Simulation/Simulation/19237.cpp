@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 int dx[] = { -1,1,0,0 };
-int dy[] = { 0,0,-1,0 };
+int dy[] = { 0,0,-1,1 };
 int N, M, K;
 int shkcnt;
 
@@ -36,6 +36,7 @@ void Print() {
 	}
 	puts(" -- shark status");
 	for (int i = 1; i <= M; i++) {
+		if(s[i].alive==ALIVE)
 		printf("   - shark[%d] : (%d, %d)\n", i, s[i].x, s[i].y);
 	}
 	puts("");
@@ -63,7 +64,7 @@ int findNextDir(int n) {
 		int nextDir = s[n].priority[s[n].dir][i];
 		int nextX = s[n].x + dx[nextDir];
 		int nextY = s[n].y + dy[nextDir];
-		printf("%d에서 다음방향 : %d\n", n, nextDir);
+		//printf("%d에서 다음방향 : %d, num : %d, dur : %d\n", n, nextDir,map[nextX][nextY].who, nextDir, map[nextX][nextY].duration);
 		if (!inBoundary(nextX, nextY)) continue;
 		else if (map[nextX][nextY].duration == 0) {
 			map[nextX][nextY].who = n;
@@ -74,9 +75,11 @@ int findNextDir(int n) {
 			return nextDir;
 		}
 		else if (map[nextX][nextY].duration == M) {
-			shkcnt--;
-			s[map[nextX][nextY].who].alive == DIE;
-			printf("!! %d Die\n", n);
+			if (s[map[nextX][nextY].who].alive == ALIVE) {
+				shkcnt--;
+				s[map[nextX][nextY].who].alive = DIE;
+				printf("@@@@@ %d Die at (%d,%d) (killed by %d) @@@@\n", map[nextX][nextY].who,nextX,nextY,n);
+			}
 			map[nextX][nextY].who = n;
 			s[n].x = nextX;
 			s[n].y = nextY;
@@ -85,7 +88,7 @@ int findNextDir(int n) {
 		}
 	}
 
-	printf("%d는 자기냄새로 (%d,%d)\n", n, x, y);
+	//printf("%d는 자기냄새로 (%d,%d)\n", n, x, y);
 	// 없다면 자신의 냄새가 있는 곳
 	for (int i = 0; i < 4; i++) {
 		int nextDir = s[n].priority[s[n].dir][i];
@@ -111,7 +114,7 @@ int moveAllShark() {
 		for (int j = 0; j < N; j++) {
 			if (map[i][j].duration > 0)
 				map[i][j].duration--;
-			else if (map[i][j].duration == 0) {
+			if (map[i][j].duration == 0) {
 				map[i][j].who = 0;
 			}
 		}
@@ -140,6 +143,7 @@ int main() {
 	}
 	for (int i = 1; i <= M; i++) {
 		scanf("%d", &s[i].dir);
+		s[i].dir--;
 	}
 	for (int i = 1; i <= M; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -151,11 +155,12 @@ int main() {
 	}
 	Print();
 	while (moveAllShark()>1) {
-		ans++;
+		if (ans++ > 1000)
+			break;
 		Print();
 		printf(" - %d turn print\n\n", ans - 1);
 	}
-	if (ans == 1)
+	if (ans > 1000)
 		printf("-1\n");
 	else
 		printf("%d\n", ans);
