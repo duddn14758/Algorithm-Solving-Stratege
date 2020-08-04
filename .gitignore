@@ -1,5 +1,9 @@
+# Folder
+Debug/
+
 # Prerequisites
 *.d
+*.txt
 
 # Compiled Object files
 *.slo

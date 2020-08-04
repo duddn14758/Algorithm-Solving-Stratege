@@ -1,8 +1,0 @@
-﻿  9659.cpp
-c:\users\youngwoo\desktop\알고리즘\baekjoon\alggame\alggame\9659.cpp(16): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\youngwoo\desktop\알고리즘\baekjoon\alggame\alggame\9659.cpp(17): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-c:\users\youngwoo\desktop\알고리즘\baekjoon\alggame\alggame\9659.cpp(21): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-  c:\program files (x86)\windows kits\10\include\10.0.17134.0\ucrt\stdio.h(1274): note: 'scanf' 선언을 참조하십시오.
-  AlgGame.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\BaekJoon\AlgGame\Debug\AlgGame.exe

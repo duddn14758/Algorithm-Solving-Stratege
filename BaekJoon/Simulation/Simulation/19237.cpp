@@ -23,25 +23,6 @@ typedef struct shark{
 shark s[401];
 smell map[21][21];
 
-void Print() {
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			printf("%d ", map[i][j].who);
-		}
-		printf("   ");
-		for (int j = 0; j < N; j++) {
-			printf("%d ", map[i][j].duration);
-		}
-		puts("");
-	}
-	puts(" -- shark status");
-	for (int i = 1; i <= M; i++) {
-		if(s[i].alive==ALIVE)
-		printf("   - shark[%d] : (%d, %d)\n", i, s[i].x, s[i].y);
-	}
-	puts("");
-}
-
 void initSharkByPos(int n, int x,int y) {
 	s[n].alive = ALIVE;
 	s[n].x = x;
@@ -57,14 +38,12 @@ bool inBoundary(int x, int y) {
 }
 
 int findNextDir(int n) {
-	// 아무냄새도 없거나 smell의 duration이 max인곳 먼저
 	int x = s[n].x;
 	int y = s[n].y;
 	for (int i = 0; i < 4; i++) {
 		int nextDir = s[n].priority[s[n].dir][i];
 		int nextX = s[n].x + dx[nextDir];
 		int nextY = s[n].y + dy[nextDir];
-		//printf("%d에서 다음방향 : %d, num : %d, dur : %d\n", n, nextDir,map[nextX][nextY].who, nextDir, map[nextX][nextY].duration);
 		if (!inBoundary(nextX, nextY)) continue;
 		else if (map[nextX][nextY].who == 0) {
 			map[nextX][nextY].who = n;
@@ -78,7 +57,6 @@ int findNextDir(int n) {
 			if (s[map[nextX][nextY].who].alive == ALIVE) {
 				shkcnt--;
 				s[map[nextX][nextY].who].alive = DIE;
-				//printf("@@@@@ %d Die at (%d,%d) (killed by %d) @@@@\n", map[nextX][nextY].who,nextX,nextY,n);
 			}
 			map[nextX][nextY].who = n;
 			s[n].x = nextX;
@@ -88,8 +66,6 @@ int findNextDir(int n) {
 		}
 	}
 
-	//printf("%d는 자기냄새로 (%d,%d)\n", n, x, y);
-	// 없다면 자신의 냄새가 있는 곳
 	for (int i = 0; i < 4; i++) {
 		int nextDir = s[n].priority[s[n].dir][i];
 		int nextX = x + dx[nextDir];
@@ -104,13 +80,7 @@ int findNextDir(int n) {
 	}
 	return -1;
 }
-/*
-int moveShark(int n) {
-	
-	s[n].dir = findNextDir(n);
 
-}
-*/
 int moveAllShark() {
 	// now pos duration decrease
 	for (int i = 0; i < N; i++) {
@@ -126,7 +96,6 @@ int moveAllShark() {
 	}
 	
 	for (int i = M; i > 0; i--) {
-
 		// move
 		if(s[i].alive==ALIVE)
 			s[i].dir = findNextDir(i);
@@ -158,12 +127,9 @@ int main() {
 			}
 		}
 	}
-	//Print();
 	while (moveAllShark()>1) {
 		if (ans++ > 1000)
 			break;
-		//Print();
-		//printf(" - %d turn print\n\n", ans - 1);
 	}
 	if (ans > 1000)
 		printf("-1\n");

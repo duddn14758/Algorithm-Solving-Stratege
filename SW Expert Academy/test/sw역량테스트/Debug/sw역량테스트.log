@@ -1,5 +1,0 @@
-﻿  prob2.cpp
-c:\users\youngwoo\desktop\알고리즘\sw expert academy\test\sw역량테스트\prob2.cpp(109): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\users\youngwoo\desktop\알고리즘\sw expert academy\test\sw역량테스트\prob2.cpp(142): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-c:\users\youngwoo\desktop\알고리즘\sw expert academy\test\sw역량테스트\prob2.cpp(167): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
-  sw역량테스트.vcxproj -> C:\Users\Youngwoo\Desktop\알고리즘\SW Expert Academy\test\Debug\sw역량테스트.exe
