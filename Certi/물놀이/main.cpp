@@ -90,6 +90,7 @@ void init() {
 	for (int i = 0; i < N; i++)
 		for (int j = 0; j < M; j++)
 			dist[i][j] = 0;
+	arrN = 0;
 }
 
 int calc() {
@@ -98,9 +99,9 @@ int calc() {
 		for (int j = 0; j < M; j++) {
 			if(map[i][j] == L)
 				ret += dist[i][j];
-			//printf("%d ", dist[i][j]);
+			printf("%d ", dist[i][j]);
 		}
-		//puts("");
+		puts("");
 	}
 	return ret;
 }
