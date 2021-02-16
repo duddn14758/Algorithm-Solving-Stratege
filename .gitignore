@@ -10,6 +10,9 @@ Debug/
 *.lo
 *.o
 *.obj
+*.suo
+*.db
+*.ipch
 
 # Precompiled Headers
 *.gch
