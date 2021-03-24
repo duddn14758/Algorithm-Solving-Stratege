@@ -1,4 +1,3 @@
-#include <stdio.h>
 // area별 가장 좋은 package를 선택해놓은 pq(heap)
 #define MAX_HASH 100000
 #define MAX_ADD 40000
@@ -17,7 +16,6 @@ typedef struct package {
 	int area;
 	int price;
 	long long pid;
-	//long long pidAndPrice;
 }package;
 
 typedef struct heapType {
@@ -26,11 +24,6 @@ typedef struct heapType {
 	void push(int area, package* p) {
 		int i;
 		for (i = 0; i < tail[area]; i++) {
-			/*
-			if (heap[area][i]->pidAndPrice > p->pidAndPrice) {
-				break;
-			}
-			*/
 			if (heap[area][i]->price > p->price ||
 				(heap[area][i]->price == p->price && heap[area][i]->pid > p->pid)) {
 				break;
@@ -40,7 +33,6 @@ typedef struct heapType {
 		for (int j = tail[area]; j > i; j--) {
 			heap[area][j] = heap[area][j - 1];
 		}
-		//printf("area %d push at %d(%lld)\n", area,i,p->pidAndPrice);
 		heap[area][i] = p;
 	}
 	package* pop(int area) {
@@ -68,7 +60,7 @@ typedef struct heapType {
 }heapType;
 
 typedef struct Heap {
-	package *heap[MAX_AREA + 1][MAX_ADD];
+	package* heap[MAX_AREA + 1][MAX_ADD];
 	int heapSize[MAX_AREA + 1];
 
 	bool compare(package* a, package* b) {
@@ -82,8 +74,8 @@ typedef struct Heap {
 		heap[area][heapSize[area]] = p;
 		int cur = heapSize[area];
 
-		while (cur > 0 && compare(heap[area][cur], heap[area][(cur-1)/2])) {
-			package *temp = heap[area][(cur - 1) / 2];
+		while (cur > 0 && compare(heap[area][cur], heap[area][(cur - 1) / 2])) {
+			package* temp = heap[area][(cur - 1) / 2];
 			heap[area][(cur - 1) / 2] = heap[area][cur];
 			heap[area][cur] = temp;
 			cur = (cur - 1) / 2;
@@ -92,12 +84,32 @@ typedef struct Heap {
 	}
 
 	package* pop(int area) {
-		for (int i = 0; i < heapSize[area]; i++) {
-			if (heap[area][i]->reserved == 0) {
-				return heap[area][i];
+		while (heapSize[area] > 0 && heap[area][0]->reserved == 1) {
+			heapSize[area]--;
+			heap[area][0] = heap[area][heapSize[area]];
+			int cur = 0;
+			while (cur * 2 + 1 < heapSize[area]) {
+				int child;
+				if (cur * 2 + 2 == heapSize[area]) {
+					child = cur * 2 + 1;
+				}
+				else {
+					child = compare(heap[area][cur * 2 + 1], heap[area][cur * 2 + 2])
+						? cur * 2 + 1 : cur * 2 + 2;
+				}
+				if (compare(heap[area][cur], heap[area][child])) {
+					break;
+				}
+				package* tmp = heap[area][cur];
+				heap[area][cur] = heap[area][child];
+				heap[area][child] = tmp;
+
+				cur = child;
 			}
 		}
-		return nullptr;
+		if (heapSize[area] == 0 || heap[area][0]->reserved == 1)
+			return nullptr;
+		return heap[area][0];
 	}
 
 	void init() {
@@ -112,7 +124,7 @@ Heap ht;
 userType user[MAX_USER + 1];
 package hash[MAX_HASH];
 
-void init(int N, int M) {	
+void init(int N, int M) {
 	for (int i = 1; i <= MAX_USER; i++) {
 		user[i].friendNum = 0;
 		for (int j = 1; j < MAX_AREA + 1; j++) {
@@ -121,12 +133,11 @@ void init(int N, int M) {
 		}
 	}
 	ht.init();
-	
+
 	for (int i = 0; i < MAX_HASH; i++) {
-		//hash[i].pidAndPrice = 0;
 		hash[i].pid = 0;
 		hash[i].reserved = 0;
-	}	
+	}
 }
 
 void befriend(int uid1, int uid2) {
@@ -151,9 +162,7 @@ void add(int pid, int area, int price) {
 	hash[idx].area = area;
 	hash[idx].pid = pid;
 	hash[idx].price = price;
-	//hash[idx].pidAndPrice = hash[idx].pid + hash[idx].price<<16;
 	ht.push(area, &hash[idx]);
-	//printf("area : %d, pid :%d\n", ht.pop(area)->area, ht.pop(area)->pid);
 }
 
 void reserve(int uid, int pid) {
@@ -167,6 +176,7 @@ void reserve(int uid, int pid) {
 	}
 	package* p = &hash[idx];
 	p->reserved = 1;
+
 	user[uid].rsvByMe[p->area]++;
 	for (int i = 0; i < user[uid].friendNum; i++) {
 		user[user[uid].friendList[i]].rsvByFriend[p->area]++;
@@ -189,19 +199,12 @@ int recommend(int uid) {
 			int nowCount = user[uid].rsvByMe[i] + user[uid].rsvByFriend[i];
 			if (maxCount < nowCount) {
 				if (now != nullptr) {
-					//printf("change %d->%d\n",maxArea,i);
 					maxArea = i;
 					maxCount = nowCount;
 					p = now;
 				}
 			}
 			else if (maxCount == nowCount && now != nullptr) {
-				/*
-				if (ht.pop(i) != nullptr && p->pidAndPrice > ht.pop(i)->pidAndPrice) {
-					maxArea = i;
-					p = ht.pop(i);
-				}
-				*/
 				if (p->price > now->price || (p->price == now->price && p->pid > now->pid)) {
 					maxArea = i;
 					p = now;
@@ -209,6 +212,5 @@ int recommend(int uid) {
 			}
 		}
 	}
-	//printf(" - %d\n", p->area);
 	return p->pid;
 }
