@@ -10,53 +10,63 @@
 
 #define ull unsigned long long
 
-void mstrcpy(char dst[], const char src[]) {
-	int c = 0;
-	while ((dst[c] = src[c]) != '\0') ++c;
-}
-
-int mstrcmp(const char str1[], const char str2[]) {
-	int c = 0;
-	while (str1[c] != '\0' && str1[c] == str2[c]) ++c;
-	return str1[c] - str2[c];
-}
-
 typedef struct book {
 	ull title;
 	int typeNum;		// del typeNum = 0
 	int types[5];
+	int section;
 }Book;
 
 typedef struct type {
-	bool used;
-	char typeName[4];
+	ull title;
+	int typeName;
 }Type;
 
-struct node {
-	int next, prev;
-}nodePool[MAX_ADD];
-int nodeCnt = 0;
+Book hashBook[MAX_ADD];		// ADD 된 책들을 수용할 배열 -> trie안쓰고 hash써도 됨
+int bookCnt;
+Type hashType[MAX_TYPE];	// hash된 type들을 추가할 배열
+
+typedef struct node {
+	ull bid;
+	int prev, next;
+}node;
+node nodePool[MAX_ADD * 5];
+int nodeCnt;
 
 struct LinkedList {
-	int node;
-	int count;
+	int node;	// 마지막 노드 pool idx
+	int count;	// node 갯수
+	int head;	// 첫번째 노드
+
+	void add(ull bid) {
+		int newNode = nodeCnt++;
+		nodePool[newNode].bid = bid;
+		nodePool[newNode].next = newNode;
+		nodePool[newNode].prev = -1;
+		if (nodePool[node].prev != -1) nodePool[newNode].prev = node;
+		count++;
+	}
 
 	void clear() {
-		node = -1;
+		node = 0;
+		head = -1;
 		count = 0;
 	}
 
-	void add() {
-		int now = nodeCnt++;
-		nodePool[now].next = node;
-		
+	void remove(ull uid) {
+		int now = nodePool[node].prev;
+		while (now != -1) {
+			if (nodePool[now].bid == uid) {
+				nodePool[nodePool[now].prev].next = nodePool[now].next;
+				nodePool[nodePool[now].next].prev = nodePool[now].prev;
+				return;
+			}
+			now = nodePool[now].prev;
+		}
 	}
 	
-}TypeBookList[MAX_TYPE];
+}Book2[MAX_SEC + 1][MAX_TYPE];
 
-Book hashBook[MAX_ADD];	// ADD 된 책들을 수용할 배열
-Type hashType[MAX_TYPE];
-int secCount[MAX_SEC + 1];
 
 ull getHashTitle(char title[]) {
 	ull tNum = 0;
@@ -66,13 +76,25 @@ ull getHashTitle(char title[]) {
 	return tNum;
 }
 
+int getHashType(char type[]) {
+	int tNum = 0;
+	for (int i = 0; i < MAX_TAG_LEN && type[i] != '\0'; i++) {
+		tNum << 6 + type[i];
+	}
+	return tNum;
+}
+
 void init(int M)
 {
-	for (int i = 1; i <= M; i++) {
-		secCount[i] = 0;
-	}
 	for (int i = 0; i < MAX_ADD; i++) {
 		hashBook[i].typeNum = 0;
+	}
+	for (int i = 0; i <= MAX_SEC; i++) {
+		for (int j = 0; j < MAX_TYPE; j++) {
+			if (Book2[i][j].count != 0) {
+				Book2[i][j].clear();
+			}
+		}
 	}
 }
 
@@ -80,57 +102,40 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 {
 	// hashpool에 추가
 	// linked tag에 추가(max 5개)
-	int nameHash = 0;
-	for (int i = 0; i < MAX_NAME_LEN && mName[i]!='\0'; i++) {
-		nameHash *= 10;
-		nameHash += mName[i]-'A';
-		nameHash %= MAX_ADD;
-	}
+	ull nid = getHashTitle(mName);
+	int nameHash = nid % MAX_ADD;
 
 	while (hashBook[nameHash].typeNum == 0) {
 		nameHash = (nameHash + 1) % MAX_ADD;
 	}
 	hashBook[nameHash].typeNum = mTypeNum;
-	
-	for (int i = 0; i < mTypeNum; i++) {
-		int typeHash = 0;
-		bool dupFlag = 0;
-		for (int j = 0; j < MAX_TAG_LEN && mTypes[i][j] != '\0'; j++) {
-			typeHash *= 10;
-			typeHash += mTypes[i][j];
-			typeHash %= MAX_TYPE;
-		}
 
-		while (hashType[typeHash].used) {
-			if (getHashTitle(mName) == getHashTitle(hashType[typeHash].typeName)) {
-				dupFlag = 1;
-				break;
-			}
+	/* type을 찾고 있다면 pass 없다면 pool에 등록 */
+	for (int i = 0; i < mTypeNum; i++) {
+		int typeName = getHashType(mTypes[i]);
+		int typeHash = typeName % MAX_TYPE;
+
+		while (typeName != hashType[typeHash].typeName) {
 			typeHash = (typeHash + 1) % MAX_TYPE;
 		}
-		hashBook[nameHash].types[i] = typeHash;
-		if (dupFlag) {
-			break;
+		if (typeName == hashType[typeHash].typeName) {
+			return;
 		}
-		mstrcpy(hashType[typeHash].typeName, mTypes[i]);
-		hashType[typeHash].used = 1;
+		hashType[typeHash].typeName = typeHash;
+		Book2[mSection][typeHash].add(nid);
 	}
-	hashSec[mSection][secCount[mSection]++] = &hashBook[nameHash];
 }
 
 int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
 {
-	int typeHash = 0;
-	for (int i = 0; i < MAX_TAG_LEN && mType[i] != '\0'; i++) {
-		typeHash *= 10;
-		typeHash += mType[i];
-		typeHash %= MAX_TYPE;
+	int typeHash = getHashType(mType) % MAX_TYPE;
+	int count = 0;
+	
+	if (Book2[mFrom][typeHash].count > 0) {
+		Book2[mTo][typeHash].node = Book2[mFrom][typeHash].node;
+		Book2[mTo][typeHash].count += Book2[mFrom][typeHash].count;
 	}
-	while (mstrcmp(mType, hashType[typeHash].typeName) != 0) {
-		typeHash = (typeHash + 1) % MAX_TYPE;
-	}
-
-
+	
 	return 0;
 }
 
