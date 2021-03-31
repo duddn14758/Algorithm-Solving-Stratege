@@ -30,6 +30,7 @@ static bool run()
 	char mName[MAX_NAME_LEN], mType[MAX_TAG_LEN], mTypes[MAX_N][MAX_TAG_LEN];
 
 	int  ret, ans;
+	int cq=0, cw=0,mq=0,mw=0;
 
 	scanf("%d", &Q);
 
@@ -59,8 +60,12 @@ static bool run()
 			if (okay)
 				ret = moveType(mType, mFrom, mTo);
 			scanf("%d", &ans);
-			if (ret != ans)
+			mq++;
+			if (ret != ans) {
+				//printf("del ( O : %d, X : %d )\n", ans, ret);
 				okay = false;
+				mw++;
+			}
 			break;
 		case CMD_MOVENAME:
 			scanf("%s %d", mName, &mSection);
@@ -80,11 +85,17 @@ static bool run()
 			if (okay)
 				ret = countBook(mTypeNum, mTypes, mSection);
 			scanf("%d", &ans);
-			if (ret != ans)
+			cq++;
+			if (ret != ans) {
+				//printf("cnt ( O : %d, X : %d )\n", ans, ret);
 				okay = false;
+				cw++;
+			}
 			break;
 		}
 	}
+	printf(" move : ( %d / %d )\n", mq - mw, mq);
+	printf("count : ( %d / %d )\n", cq - cw, cq);
 
 	return okay;
 }
@@ -92,7 +103,7 @@ static bool run()
 int main()
 {
 	setbuf(stdout, NULL);
-	//freopen("sample_input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 
 	int T, MARK;
 	scanf("%d %d", &T, &MARK);
