@@ -62,7 +62,7 @@ static bool run()
 			scanf("%d", &ans);
 			mq++;
 			if (ret != ans) {
-				//printf("del ( O : %d, X : %d )\n", ans, ret);
+				//printf("mov ( O : %d, X : %d )\n", ans, ret);
 				okay = false;
 				mw++;
 			}

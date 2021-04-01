@@ -31,7 +31,12 @@ int gidx;
 ull getHashTitle(char title[]) {
 	ull tNum = 0;
 	for (int i = 0; i < MAX_NAME_LEN && title[i] != '\0'; i++) {
-		tNum = (tNum << 6) + title[i]-'A';
+		if (title[i] >= 'A' && title[i] <= 'Z') {
+			tNum = (tNum << 7) + title[i] - 'A' + 1;
+		}
+		else {
+			tNum = (tNum << 7) + title[i] - 'a' + 28;
+		}
 	}
 	return tNum;
 }
@@ -39,7 +44,12 @@ ull getHashTitle(char title[]) {
 int getHashType(char type[]) {
 	int tNum = 0;
 	for (int i = 0; i < MAX_TAG_LEN && type[i] != '\0'; i++) {
-		tNum = (tNum << 6) + type[i]-'A';
+		if (type[i] >= 'A' && type[i] <= 'Z') {
+			tNum = (tNum << 7) + type[i] - 'A' + 1;
+		}
+		else {
+			tNum = (tNum << 7) + type[i] - 'a' + 28;
+		}
 	}
 	return tNum;
 }
@@ -68,7 +78,7 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 	ull bid = getHashTitle(mName);
 	int nameHash = bid % MAX_ADD;
 
-	while (hashBook[nameHash].typeNum != 0) {
+	while (hashBook[nameHash].typeNum > 0) {
 		nameHash = (nameHash + 1) % MAX_ADD;
 	}
 	hashBook[nameHash].title = bid;
@@ -88,7 +98,7 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 		if (typeName != hashType[typeHash].typeName) {		// 다르면 tag hash에 추가
 			hashType[typeHash].typeName = typeName;
 		}
-		hashBook[nameHash].types[i] = typeName;
+		//hashBook[nameHash].types[i] = typeName;
 		hashType[typeHash].hash[hashType[typeHash].bookNum] = &hashBook[nameHash];
 		hashType[typeHash].bookNum++;
 	}
@@ -118,7 +128,7 @@ void moveName(char mName[MAX_NAME_LEN], int mSection)
 {
 	//printf("MOVE Name\n");
 	ull titleName = getHashTitle(mName);
-	ull titleHash = titleName % MAX_ADD;
+	int titleHash = titleName % MAX_ADD;
 	while (titleName != hashBook[titleHash].title) {
 		titleHash = (titleHash + 1) % MAX_ADD;
 	}
@@ -129,7 +139,7 @@ void deleteName(char mName[MAX_NAME_LEN])
 {
 	//printf("DEL Name\n");
 	ull titleName = getHashTitle(mName);
-	ull titleHash = titleName % MAX_ADD;
+	int titleHash = titleName % MAX_ADD;
 	while (titleName != hashBook[titleHash].title) {
 		titleHash = (titleHash + 1) % MAX_ADD;
 	}
