@@ -13,13 +13,12 @@
 typedef struct book {
 	ull title;
 	int typeNum;			// del typeNum = 0
-	int types[5];
 	int section;
 	int nowCnt;
 }Book;
 
 typedef struct type {
-	int typeName;
+	ull typeName;
 	Book *hash[MAX_ADD];	// 실제 book의 주소
 	int bookNum;
 }Type;
@@ -41,8 +40,8 @@ ull getHashTitle(char title[]) {
 	return tNum;
 }
 
-int getHashType(char type[]) {
-	int tNum = 0;
+ull getHashType(char type[]) {
+	ull tNum = 0;
 	for (int i = 0; i < MAX_TAG_LEN && type[i] != '\0'; i++) {
 		if (type[i] >= 'A' && type[i] <= 'Z') {
 			tNum = (tNum << 7) + type[i] - 'A' + 1;
@@ -56,7 +55,6 @@ int getHashType(char type[]) {
 
 void init(int M)
 {
-	//printf("Init\n");
 	for (int i = 0; i < MAX_ADD; i++) {
 		hashBook[i].title = 0;
 		hashBook[i].typeNum = 0;
@@ -72,12 +70,10 @@ void init(int M)
 
 void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN], int mSection)
 {
-	//printf("ADD\n");
 	// hashtitle구해서 book 배열에 add
 	// hashtype에다가 배열에 추가된 book의 주소를 넣어준다.
 	ull bid = getHashTitle(mName);
 	int nameHash = bid % MAX_ADD;
-
 	while (hashBook[nameHash].typeNum > 0) {
 		nameHash = (nameHash + 1) % MAX_ADD;
 	}
@@ -88,27 +84,26 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 
 	/* type을 찾고 있다면 pass 없다면 tag에 추가*/
 	for (int i = 0; i < mTypeNum; i++) {
-		int typeName = getHashType(mTypes[i]);
+		ull typeName = getHashType(mTypes[i]);
 		int typeHash = typeName % MAX_TYPE;
 
 		// 해당칸에 tag가 존재하는지, 존재한다면 같은것인지
 		while (hashType[typeHash].bookNum > 0 && typeName != hashType[typeHash].typeName) {
 			typeHash = (typeHash + 1) % MAX_TYPE;
 		}
-		if (typeName != hashType[typeHash].typeName) {		// 다르면 tag hash에 추가
+		if (typeName != hashType[typeHash].typeName) {		// 다르면 tag hash에 추가, typename != 0
 			hashType[typeHash].typeName = typeName;
 		}
-		//hashBook[nameHash].types[i] = typeName;
 		hashType[typeHash].hash[hashType[typeHash].bookNum] = &hashBook[nameHash];
 		hashType[typeHash].bookNum++;
 	}
+	// TAG가 사용중인지 아닌지 알 수 있는 인자 : bookNum
 }
 
 int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
 {
-	//printf("MOVE Type\n");
 	int count = 0;
-	int typeName = getHashType(mType);
+	ull typeName = getHashType(mType);
 	int typeHash = typeName % MAX_TYPE;
 	while (typeName != hashType[typeHash].typeName) {
 		typeHash = (typeHash + 1) % MAX_TYPE;
@@ -124,9 +119,13 @@ int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
 	return count;
 }
 
+// move & del 때 tag에서 bookNum-- 시켜줘야되는거 아님? --> 아님 --> 이러면 충돌남
+// tag에서 num이 쓰이나..?
+// move가 어디에 영향을 주나? --> section --> 딱히 영향 X
+// del이 0으로 남아있을때의 문제점..?
+
 void moveName(char mName[MAX_NAME_LEN], int mSection)
 {
-	//printf("MOVE Name\n");
 	ull titleName = getHashTitle(mName);
 	int titleHash = titleName % MAX_ADD;
 	while (titleName != hashBook[titleHash].title) {
@@ -137,7 +136,7 @@ void moveName(char mName[MAX_NAME_LEN], int mSection)
 
 void deleteName(char mName[MAX_NAME_LEN])
 {
-	//printf("DEL Name\n");
+	// del 된지 알 수 있는 인자 : typeNum 이 0
 	ull titleName = getHashTitle(mName);
 	int titleHash = titleName % MAX_ADD;
 	while (titleName != hashBook[titleHash].title) {
@@ -145,18 +144,17 @@ void deleteName(char mName[MAX_NAME_LEN])
 	}
 	hashBook[titleHash].typeNum = 0;
 	hashBook[titleHash].title = 0;
+	hashBook[titleHash].section = 0;
 }
 
 int countBook(int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN], int mSection)
 {
-	//printf("COUNT Book\n");
 	int count = 0;
 	int typeName;
-	int typeHash;
-	int typeHashOrg;
+	ull typeHash;
+	ull typeHashOrg;
 	bool existFlag = true;
 	for (int i = 0; i < mTypeNum; i++) {
-		Book* buf;
 		typeName = getHashType(mTypes[i]);
 		typeHash = typeName % MAX_TYPE;
 		typeHashOrg = typeHash;
@@ -172,7 +170,7 @@ int countBook(int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN], int mSection)
 			continue;
 		}
 		for (int j = 0; j < hashType[typeHash].bookNum; j++) {
-			buf = hashType[typeHash].hash[j];
+			Book* buf = hashType[typeHash].hash[j];
 			if (buf->section == mSection && buf->typeNum > 0 && buf->nowCnt != gidx) {
 				buf->nowCnt = gidx;
 				count++;
