@@ -1,11 +1,9 @@
-#include <stdio.h>
-
 #define MAX_N			5
 #define MAX_NAME_LEN	7
 #define MAX_TAG_LEN		4
 
-#define MAX_ADD 50000
-#define MAX_TYPE 500
+#define MAX_ADD 60007
+#define MAX_TYPE 507
 #define MAX_SEC 100
 
 #define ull unsigned long long
@@ -15,6 +13,7 @@ typedef struct book {
 	int typeNum;			// del typeNum = 0
 	int section;
 	int nowCnt;
+	int del;				// del되었던 위치에 다시 들어올 것을 대비 --> 현재 위치참조중
 }Book;
 
 typedef struct type {
@@ -74,13 +73,12 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 	// hashtype에다가 배열에 추가된 book의 주소를 넣어준다.
 	ull bid = getHashTitle(mName);
 	int nameHash = bid % MAX_ADD;
-	while (hashBook[nameHash].typeNum > 0) {
+	while (hashBook[nameHash].typeNum > 0 || hashBook[nameHash].del == 1) {
 		nameHash = (nameHash + 1) % MAX_ADD;
 	}
 	hashBook[nameHash].title = bid;
 	hashBook[nameHash].typeNum = mTypeNum;
 	hashBook[nameHash].section = mSection;
-	//printf("%lld %d %d\n", bid, mTypeNum, mSection);
 
 	/* type을 찾고 있다면 pass 없다면 tag에 추가*/
 	for (int i = 0; i < mTypeNum; i++) {
@@ -97,7 +95,6 @@ void add(char mName[MAX_NAME_LEN], int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN]
 		hashType[typeHash].hash[hashType[typeHash].bookNum] = &hashBook[nameHash];
 		hashType[typeHash].bookNum++;
 	}
-	// TAG가 사용중인지 아닌지 알 수 있는 인자 : bookNum
 }
 
 int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
@@ -110,7 +107,7 @@ int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
 	}
 	for (int i = 0; i < hashType[typeHash].bookNum; i++) {
 		Book* book = hashType[typeHash].hash[i];
-		if (book->typeNum > 0 && book->section == mFrom) {
+		if (book->del != 1 && book->section == mFrom) {
 			book->section = mTo;
 			count++;
 		}
@@ -119,11 +116,8 @@ int moveType(char mType[MAX_TAG_LEN], int mFrom, int mTo)
 	return count;
 }
 
-// move & del 때 tag에서 bookNum-- 시켜줘야되는거 아님? --> 아님 --> 이러면 충돌남
-// tag에서 num이 쓰이나..?
-// move가 어디에 영향을 주나? --> section --> 딱히 영향 X
-// del이 0으로 남아있을때의 문제점..?
-
+// --> del 된곳에 다시 들어오면, tag안에 있는 book배열이 move할때 문제가 생김 --> del을 써줘야된다
+// --> del된곳은 다시 참조하면 안됨!
 void moveName(char mName[MAX_NAME_LEN], int mSection)
 {
 	ull titleName = getHashTitle(mName);
@@ -136,7 +130,6 @@ void moveName(char mName[MAX_NAME_LEN], int mSection)
 
 void deleteName(char mName[MAX_NAME_LEN])
 {
-	// del 된지 알 수 있는 인자 : typeNum 이 0
 	ull titleName = getHashTitle(mName);
 	int titleHash = titleName % MAX_ADD;
 	while (titleName != hashBook[titleHash].title) {
@@ -145,6 +138,7 @@ void deleteName(char mName[MAX_NAME_LEN])
 	hashBook[titleHash].typeNum = 0;
 	hashBook[titleHash].title = 0;
 	hashBook[titleHash].section = 0;
+	hashBook[titleHash].del = 1;
 }
 
 int countBook(int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN], int mSection)
@@ -171,7 +165,7 @@ int countBook(int mTypeNum, char mTypes[MAX_N][MAX_TAG_LEN], int mSection)
 		}
 		for (int j = 0; j < hashType[typeHash].bookNum; j++) {
 			Book* buf = hashType[typeHash].hash[j];
-			if (buf->section == mSection && buf->typeNum > 0 && buf->nowCnt != gidx) {
+			if (buf->section == mSection && buf->del != 1 &&buf->nowCnt != gidx) {
 				buf->nowCnt = gidx;
 				count++;
 			}
