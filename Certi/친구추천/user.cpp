@@ -27,52 +27,85 @@ int nodeCnt;
 void init(int N)
 {
 	nodeCnt = 0;
-	for (int i = 0; i < MAX_ADD; i++) {
+	for (int i = 1; i <= MAX_USER; i++) {
 		userList[i].frdNum = 0;
-		userList[i].head = -1;
+		userList[i].head = 0;
 		userList[i].tail = 0;
 	}
 }
 
 void add(int id, int F, int ids[MAXF])
 {
-	for (int i = 0; i < F; i++) {
-		nodePool[userList[id].tail].next = nodeCnt;
+	for (int i = 0; i < F; i++) {		
+		if (userList[id].frdNum == 0) {
+			userList[id].head = nodeCnt;
+		}
+		else {
+			nodePool[userList[id].tail].next = nodeCnt;
+			nodePool[nodeCnt].prev = userList[id].tail;
+		}
 		nodePool[nodeCnt].id = ids[i];
-		nodePool[nodeCnt].prev = userList[id].tail;
+		userList[id].tail = nodeCnt;
+		userList[id].frdNum++;
 		nodeCnt++;
 
-		nodePool[userList[ids[i]].tail].next = nodeCnt;
+		if (userList[ids[i]].frdNum == 0) {
+			userList[ids[i]].head = nodeCnt;
+		}
+		else {
+			nodePool[userList[ids[i]].tail].next = nodeCnt;
+			nodePool[nodeCnt].prev = userList[ids[i]].tail;
+		}
 		nodePool[nodeCnt].id = id;
-		nodePool[nodeCnt].prev = userList[ids[i]].tail;
-		nodeCnt++;
+		userList[ids[i]].tail = nodeCnt;
 		userList[ids[i]].frdNum++;
+		nodeCnt++;
 	}
-	userList[id].frdNum += F;
+	/*
+	Node* now = &nodePool[userList[id].head];
+	for (int i = 0; i < userList[id].frdNum; i++) {
+		printf("%d[%d] - %d\n", id, i, now->id);
+		now = &nodePool[now->next];
+	}
+	*/
 }
 
 void del(int id1, int id2)
 {
+	Node* now = &nodePool[userList[id1].head];
 	for (int i = 0; i < userList[id1].frdNum; i++) {
-		Node now = nodePool[userList[i].head];
-		if (now.id == id2) {
-			nodePool[now.prev].next = now.next;
-			nodePool[now.next].prev = now.prev;
-			now.id = 0;
+		if (now->id == id2) {
+			if (userList[id1].frdNum == i - 1) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
+				nodePool[now->prev].next = 0;
+				userList[id1].tail = now->prev;
+			}
+			else {
+				nodePool[now->prev].next = now->next;
+				nodePool[now->next].prev = now->prev;
+			}
+			now->id = 0;
+			userList[id1].frdNum--;
 			break;
 		}
-		now = nodePool[now.next];
+		now = &nodePool[now->next];
 	}
 
+	now = &nodePool[userList[id2].head];
 	for (int i = 0; i < userList[id2].frdNum; i++) {
-		Node now = nodePool[userList[i].head];
-		if (now.id == id1) {
-			nodePool[now.prev].next = now.next;
-			nodePool[now.next].prev = now.prev;
-			now.id = 0;
+		if (now->id == id1) {
+			if (userList[id2].frdNum == i - 1) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
+				nodePool[now->prev].next = 0;
+				userList[id2].tail = now->prev;
+			}
+			else {
+				nodePool[now->prev].next = now->next;
+				nodePool[now->next].prev = now->prev;
+			}
+			now->id = 0;
+			userList[id2].frdNum--;
 			break;
 		}
-		now = nodePool[now.next];
+		now = &nodePool[now->next];
 	}
 }
 
@@ -91,22 +124,21 @@ int recommend(int id, int list[MAXL])
 	int arr[MAX_USER + 1] = { 0, };
 	// id 와 친구가 아니여야됨
 
-	int frdIdx = userList[id].head;
+	Node* now = &nodePool[userList[id].head];	// id의 친구
 	for (int i = 0; i < userList[id].frdNum; i++) {
-		Node now = nodePool[frdIdx];		// id 의 친구
-		for (int j = 0; j < userList[now.id].frdNum; j++) {
-			Node fFriend = nodePool[userList[now.id].head];		// id의 친구의 친구
-			arr[fFriend.id]++;
-			fFriend = nodePool[fFriend.next];
+		Node* fnow = &nodePool[userList[now->id].head];		// id의 친구의 친구 head
+		for (int j = 0; j < userList[now->id].frdNum; j++) {
+			arr[fnow->id]++;
+			fnow = &nodePool[fnow->next];
 		}
-		now = nodePool[now.next];
+		now = &nodePool[now->next];
 	}
 
 	// id 와 친구인 애들 지움
-	Node now = nodePool[userList[id].head];
+	now = &nodePool[userList[id].head];
 	for (int i = 0; i < userList[id].frdNum; i++) {
-		arr[now.id] = 0;
-		now = nodePool[now.next];
+		arr[now->id] = 0;
+		now = &nodePool[now->next];
 	}
 	// id 지움
 	arr[id] = 0;
