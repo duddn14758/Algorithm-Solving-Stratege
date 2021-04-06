@@ -3,56 +3,81 @@
 #define MAXL	5
 #define MAXF	10
 #define MAX_USER 10000
-
-typedef struct User {
-	int id;
-	int friendNum;
-	int myFrdList[MAX_USER + 1];
-}User;
+#define MAX_ADD 250000
 
 typedef struct Heap {
 	int id;
 	int num;
 }ht;
 
-User userList[MAX_USER + 1];
+typedef struct Node {
+	int id;
+	int prev, next;
+}Node;
+
+struct LinkedList {
+	int frdNum;
+	int head, tail;
+}userList[MAX_USER + 1];
+
+ht heap[MAX_USER];
+Node nodePool[MAX_ADD];
+int nodeCnt;
 
 void init(int N)
 {
-	for(int i = 1; i <= MAX_USER; i++) {
-		userList[i].id = 0;
-		userList[i].friendNum = 0;
+	nodeCnt = 0;
+	for (int i = 0; i < MAX_ADD; i++) {
+		userList[i].frdNum = 0;
+		userList[i].head = -1;
+		userList[i].tail = 0;
 	}
 }
 
 void add(int id, int F, int ids[MAXF])
 {
 	for (int i = 0; i < F; i++) {
-		//printf("add %d to %d\n", ids[i], id);
-		userList[id].myFrdList[userList[id].friendNum++] = ids[i];
-		userList[ids[i]].myFrdList[userList[ids[i]].friendNum++] = id;
-		//printf("%d frd num : %d, %d frd num : %d\n", id, userList[id].friendNum, ids[i], userList[ids[i]].friendNum);
+		nodePool[userList[id].tail].next = nodeCnt;
+		nodePool[nodeCnt].id = ids[i];
+		nodePool[nodeCnt].prev = userList[id].tail;
+		nodeCnt++;
+
+		nodePool[userList[ids[i]].tail].next = nodeCnt;
+		nodePool[nodeCnt].id = id;
+		nodePool[nodeCnt].prev = userList[ids[i]].tail;
+		nodeCnt++;
+		userList[ids[i]].frdNum++;
 	}
+	userList[id].frdNum += F;
 }
 
 void del(int id1, int id2)
 {
-	for (int i = 0; i < userList[id1].friendNum; i++) {
-		if (userList[id1].myFrdList[i] == id2) {
-			userList[id1].myFrdList[i] = 0;
+	for (int i = 0; i < userList[id1].frdNum; i++) {
+		Node now = nodePool[userList[i].head];
+		if (now.id == id2) {
+			nodePool[now.prev].next = now.next;
+			nodePool[now.next].prev = now.prev;
+			now.id = 0;
 			break;
 		}
+		now = nodePool[now.next];
 	}
-	for (int i = 0; i < userList[id2].friendNum; i++) {
-		if (userList[id2].myFrdList[i] == id1) {
-			userList[id2].myFrdList[i] = 0;
+
+	for (int i = 0; i < userList[id2].frdNum; i++) {
+		Node now = nodePool[userList[i].head];
+		if (now.id == id1) {
+			nodePool[now.prev].next = now.next;
+			nodePool[now.next].prev = now.prev;
+			now.id = 0;
 			break;
 		}
+		now = nodePool[now.next];
 	}
 }
 
 bool oper(ht a, ht b) {
-	if (a.num < b.num) {
+	if (a.num > b.num) {
 		return true;
 	}
 	else if (a.num == b.num && a.id < b.id) {
@@ -64,21 +89,35 @@ bool oper(ht a, ht b) {
 int recommend(int id, int list[MAXL])
 {
 	int arr[MAX_USER + 1] = { 0, };
-	ht heap[MAX_USER + 1];
-	for (int i = 0; i < userList[id].friendNum; i++) {
-		// 내 친구 리스트에 있는 친구들의 친구 리스트를 arr에 더해준다
-		int frd = userList[id].myFrdList[i];
-		for (int j = 0; j < userList[frd].friendNum; j++) {
-			arr[userList[frd].myFrdList[j]]++;
+	// id 와 친구가 아니여야됨
+
+	int frdIdx = userList[id].head;
+	for (int i = 0; i < userList[id].frdNum; i++) {
+		Node now = nodePool[frdIdx];		// id 의 친구
+		for (int j = 0; j < userList[now.id].frdNum; j++) {
+			Node fFriend = nodePool[userList[now.id].head];		// id의 친구의 친구
+			arr[fFriend.id]++;
+			fFriend = nodePool[fFriend.next];
 		}
+		now = nodePool[now.next];
 	}
-	// arr heapsort
-	
+
+	// id 와 친구인 애들 지움
+	Node now = nodePool[userList[id].head];
+	for (int i = 0; i < userList[id].frdNum; i++) {
+		arr[now.id] = 0;
+		now = nodePool[now.next];
+	}
+	// id 지움
+	arr[id] = 0;
+
+	// arr heapsort	
 	int size = 0;
 	int cur;
 	for (int i = 1; i <= MAX_USER; i++) {
-		if (arr[i] == 0) continue;
+		if (arr[i] == 0 || i == id) continue;
 
+		heap[size].id = i;
 		heap[size].num = arr[i];
 		cur = size;
 		while (cur > 0 && oper(heap[cur], heap[(cur - 1) / 2])) {
@@ -92,7 +131,9 @@ int recommend(int id, int list[MAXL])
 
 	int idx = 0;
 	while (size > 0) {
-		list[idx] = heap[0].id;
+		if (idx >= 5) break;
+		list[idx++] = heap[0].id;
+		//printf("num : %d, id : %d\n", heap[0].num, heap[0].id);
 		size--;
 		heap[0] = heap[size];
 
@@ -103,10 +144,10 @@ int recommend(int id, int list[MAXL])
 				child = cur * 2 + 1;
 			}
 			else {
-				child = heap[cur * 2 + 1].num < heap[cur * 2 + 2].num ? cur * 2 + 1 : cur * 2 + 1;
+				child = oper(heap[cur * 2 + 1], heap[cur * 2 + 2]) ? cur * 2 + 1 : cur * 2 + 2;
 			}
 
-			if (heap[cur].num < heap[child].num) {
+			if (oper(heap[cur], heap[child])) {
 				break;
 			}
 

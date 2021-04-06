@@ -64,12 +64,15 @@ static bool run()
 			{
 				//printf("id : %d, len : %d\n", id, len_a);
 				len = recommend(id, list);
-				if (len != len_a)
+				if (len != len_a) {
+					//printf(" ========== len err ( len_a : %d, len : %d )\n", len_a,len);
 					okay = false;
-
-				for (int i = 0; okay && i < len_a; ++i)
+				}
+				for (int i = 0; i < len_a; ++i) {
+					//printf("%d - ( right : %d / wrong : %d )\n", id, list_a[i], list[i]);
 					if (list[i] != list_a[i])
 						okay = false;
+				}
 			}
 			break;
 		}
