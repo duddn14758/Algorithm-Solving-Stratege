@@ -61,13 +61,6 @@ void add(int id, int F, int ids[MAXF])
 		userList[ids[i]].frdNum++;
 		nodeCnt++;
 	}
-	/*
-	Node* now = &nodePool[userList[id].head];
-	for (int i = 0; i < userList[id].frdNum; i++) {
-		printf("%d[%d] - %d\n", id, i, now->id);
-		now = &nodePool[now->next];
-	}
-	*/
 }
 
 void del(int id1, int id2)
