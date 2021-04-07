@@ -3,7 +3,7 @@
 #define MAXL	5
 #define MAXF	10
 #define MAX_USER 10000
-#define MAX_ADD 250000
+#define MAX_ADD 500000
 
 typedef struct Heap {
 	int id;
@@ -68,14 +68,21 @@ void del(int id1, int id2)
 	Node* now = &nodePool[userList[id1].head];
 	for (int i = 0; i < userList[id1].frdNum; i++) {
 		if (now->id == id2) {
-			if (userList[id1].frdNum == i - 1) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
-				nodePool[now->prev].next = 0;
+			if (i == 0) {
+				userList[id1].head = now->next;
+			}
+			else if (userList[id1].frdNum - 1 == i) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
 				userList[id1].tail = now->prev;
 			}
 			else {
 				nodePool[now->prev].next = now->next;
 				nodePool[now->next].prev = now->prev;
 			}
+			// 첫번째일때는 head 변경
+			// 마지막일때는 tail 변경
+			// 첫번째이자 마지막일 때는, 아무것도 안해줘도됨 -> 다음 add시 head와 tail이 채워질꺼라서
+			// add 시에는 frdNum으로 판단.
+
 			now->id = 0;
 			userList[id1].frdNum--;
 			break;
@@ -86,8 +93,10 @@ void del(int id1, int id2)
 	now = &nodePool[userList[id2].head];
 	for (int i = 0; i < userList[id2].frdNum; i++) {
 		if (now->id == id1) {
-			if (userList[id2].frdNum == i - 1) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
-				nodePool[now->prev].next = 0;
+			if (i == 0) {
+				userList[id2].head = now->next;
+			}
+			else if (userList[id2].frdNum - 1 == i) {		// 마지막꺼 지울때는 next의 prev를 건드리지 않는다.
 				userList[id2].tail = now->prev;
 			}
 			else {
