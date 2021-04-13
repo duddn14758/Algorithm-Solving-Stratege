@@ -136,7 +136,7 @@ static int run() {
 
 int main() {
 	setbuf(stdout, NULL);
-	//freopen("sample_input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 
 	int T, tc;
 	scanf("%d %d", &T, &PASS);
