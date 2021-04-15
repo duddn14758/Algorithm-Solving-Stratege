@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "가족구성원찾기", "가족구성원찾기.vcxproj", "{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Debug|x64.ActiveCfg = Debug|x64
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Debug|x64.Build.0 = Debug|x64
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Debug|x86.ActiveCfg = Debug|Win32
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Debug|x86.Build.0 = Debug|Win32
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Release|x64.ActiveCfg = Release|x64
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Release|x64.Build.0 = Release|x64
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Release|x86.ActiveCfg = Release|Win32
+		{9B9D23EB-CA31-470A-BBCB-94E76C2674D2}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E094348E-1B2E-491A-B327-E3CD7A559254}
+	EndGlobalSection
+EndGlobal
