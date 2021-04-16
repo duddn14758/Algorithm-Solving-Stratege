@@ -76,6 +76,7 @@ static void cmd_getDistance()
 
 	if (ans != userAns)
 	{
+		printf("( %d - %d )\n", ans, userAns);
 		score = 0;
 	}
 }
@@ -94,6 +95,7 @@ static void cmd_countMember()
 
 	if (ans != userAns)
 	{
+		printf("( %d - %d )\n",ans, userAns);
 		score = 0;
 	}
 }
@@ -102,7 +104,7 @@ int main()
 {
 	setbuf(stdout, NULL);
 
-	//	freopen("sample_input.txt", "r", stdin);
+	freopen("input.txt", "r", stdin);
 
 	int T, scoreIdx;
 	scanf("%d %d", &T, &scoreIdx);
