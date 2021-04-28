@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="17142.cpp" />
     <ClCompile Include="21608.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

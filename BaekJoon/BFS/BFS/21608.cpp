@@ -2,11 +2,13 @@
 #define MAX_STU 20
 #define CHK 5
 
-int fav[MAX_STU][4];
-int map[MAX_STU][MAX_STU];
+int fav[MAX_STU+1][4];		// 좋아하는 친구 순위
+int map[MAX_STU][MAX_STU];	// 자리배치도
 
-int dx[] = { -1,-1,-1,0,0,1,1,1 };
-int dy[] = { -1,0,1,-1,1,-1,0,1 };
+//int dx[] = { -1,-1,-1,0,0,1,1,1 };
+//int dy[] = { -1,0,1,-1,1,-1,0,1 };
+int dx[] = { -1,0,0,1 };
+int dy[] = { 0,-1,1,0 };
 
 struct pos {
 	int x, y;
@@ -17,38 +19,82 @@ struct prt {
 	int cnt;
 };
 
-pos student[MAX_STU];
-int priority[MAX_STU];
+pos student[MAX_STU+1];	// 학생의 좌표
+bool sit[MAX_STU+1];		// 학생이 착석했는지
 int num;
 int total;
 
 bool inBoundary(int x, int y) {
-	if (x > MAX_STU - 1 || y > MAX_STU - 1 || x < 0 || y < 0) return 0;
+	if (x > num - 1 || y > num - 1 || x < 0 || y < 0) return 0;
 	return 1;
 }
 
-void init() {
-
+int getEmtptyCnt(int x, int y) {
+	int cnt = 0;
+	for (int i = 0; i < 4; i++) {
+		int nextX = x + dx[i];
+		int nextY = y + dy[i];
+		if (inBoundary(nextX, nextY) && map[nextX][nextY] != CHK) {
+			cnt++;
+		}
+	}
+	return cnt;
 }
 
-void select(int num) {
+int getDistance(pos a, pos b) {
+	return ((a.x - b.x) > 0 ? (a.x - b.x) : (b.x - a.x)) + ((a.y - b.y) > 0 ? (a.y - b.y) : (b.y - a.y));
+}
+
+int getSatisfaction() {
+	int favFrd;
+	int totalCnt = 0;
+	for (int i = 1; i <= total; i++) {
+		int satisCnt = 0;
+		for (int j = 0; j < 4; j++) {
+			favFrd = fav[i][j];
+			if (getDistance(student[i], student[favFrd]) == 1) {
+				satisCnt++;
+			}
+		}
+		if (satisCnt == 1) {
+			totalCnt += 1;
+		}
+		else if (satisCnt == 2) {
+			totalCnt += 10;
+		}
+		else if (satisCnt == 3) {
+			totalCnt += 100;
+		}
+		else if (satisCnt == 4) {
+			totalCnt += 1000;
+		}
+	}
+	return totalCnt;
+}
+
+
+void select(int n) {
 	prt p = { 0,0,0 };
 	pos *std;
 	bool existFlag = false;
+	int emptyCnt = 0;
 
 	for (int i = 0; i < 4; i++) {
-		if (student[fav[num][i]].x != -1) {
+		if (sit[fav[n][i]] != 0) {
 			existFlag = true;
-			std = &student[fav[num][i]];
-			for (int j = 0; j < 8; j++) {
+			std = &student[fav[n][i]];
+			for (int j = 0; j < 4; j++) {
 				int nextX = std->x + dx[j];
 				int nextY = std->y + dy[j];
 				if (inBoundary(nextX, nextY) && map[nextX][nextY] != CHK) {
 					map[nextX][nextY]++;
-					if (map[nextX][nextY] > p.cnt) {
+					int cntBuf = getEmtptyCnt(nextX, nextY);
+					if (map[nextX][nextY] > p.cnt || 
+						(map[nextX][nextY] == p.cnt && cntBuf > emptyCnt)) {
 						p.p.x = nextX;
 						p.p.y = nextY;
 						p.cnt = map[nextX][nextY];
+						emptyCnt = cntBuf;
 					}
 				}
 			}
@@ -56,9 +102,9 @@ void select(int num) {
 	}
 	if (existFlag) {
 		for (int i = 0; i < 4; i++) {
-			if (student[fav[num][i]].x != -1) {
-				std = &student[fav[num][i]];
-				for (int j = 0; j < 8; j++) {
+			if (sit[fav[n][i]] != 0) {
+				std = &student[fav[n][i]];
+				for (int j = 0; j < 4; j++) {
 					int nextX = std->x + dx[j];
 					int nextY = std->y + dy[j];
 					if (inBoundary(nextX, nextY) && map[nextX][nextY] != CHK && map[nextX][nextY] != 0) {
@@ -67,42 +113,41 @@ void select(int num) {
 				}
 			}
 		}
-		student[num].x = p.p.x;
-		student[num].y = p.p.y;
+		student[n].x = p.p.x;
+		student[n].y = p.p.y;
+		map[student[n].x][student[n].y] = CHK;
 		return;
 	}
 
-	for (int i = 0; i < MAX_STU; i++) {
-		for (int j = 0; j < MAX_STU; j++) {
-			if (map[i][j] != CHK) {
-				map[i][j] = CHK;
-				student[num].x = i;
-				student[num].y = j;
-				return;
+	int cnt = 0;
+	for (int i = 0; i < num; i++) {
+		for (int j = 0; j < num; j++) {
+			int cntBuf = getEmtptyCnt(i, j);
+			if (map[i][j] != CHK && cnt < cntBuf) {
+				student[n].x = i;
+				student[n].y = j;
+				cnt = cntBuf;
 			}
 		}
 	}
-
-	printf("ERR\n");
+	map[student[n].x][student[n].y] = CHK;
+	
 	return;
 }
 
-int counting() {
-	int cnt = 0;
-	for (int i = 0; i < total; i++) {
-
-	}
-}
-
 int main() {
+	int stdnt;
 	scanf("%d", &num);
 	total = num * num;
 	for (int i = 0; i < total; i++) {
-		scanf("%d", &priority[i]);
+		scanf("%d", &stdnt);
 		for (int j = 0; j < 4; j++) {
-			scanf("%d", &fav[priority[i]][j]);
+			scanf("%d", &fav[stdnt][j]);
 		}
+		select(stdnt);
+		sit[stdnt] = 1;
 	}
+	printf("%d\n", getSatisfaction());
 
 	return 0;
 }
