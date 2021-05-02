@@ -1,12 +1,11 @@
 #include <stdio.h>
 #define MAX_STU 20
 #define CHK 5
+#define MAX_SIZE 401
 
-int fav[MAX_STU+1][4];		// 좋아하는 친구 순위
+int fav[MAX_STU + 1][4];		// 좋아하는 친구 순위
 int map[MAX_STU][MAX_STU];	// 자리배치도
 
-//int dx[] = { -1,-1,-1,0,0,1,1,1 };
-//int dy[] = { -1,0,1,-1,1,-1,0,1 };
 int dx[] = { -1,0,0,1 };
 int dy[] = { 0,-1,1,0 };
 
@@ -19,16 +18,24 @@ struct prt {
 	int cnt;
 };
 
-pos student[MAX_STU+1];	// 학생의 좌표
-bool sit[MAX_STU+1];		// 학생이 착석했는지
+struct versePos {
+	pos p;
+	int favorCnt;
+	int emptyCnt;
+};
+
+pos student[MAX_STU + 1];	// 학생의 좌표
+bool sit[MAX_STU + 1];		// 학생이 착석했는지
 int num;
 int total;
+
 
 bool inBoundary(int x, int y) {
 	if (x > num - 1 || y > num - 1 || x < 0 || y < 0) return 0;
 	return 1;
 }
 
+/*
 int getEmtptyCnt(int x, int y) {
 	int cnt = 0;
 	for (int i = 0; i < 4; i++) {
@@ -72,7 +79,86 @@ int getSatisfaction() {
 	return totalCnt;
 }
 
+*/
 
+bool oper(versePos a, versePos b) {
+	if (a.favorCnt < b.favorCnt || (a.favorCnt == b.favorCnt && a.emptyCnt < b.emptyCnt)
+		|| (a.favorCnt == b.favorCnt && a.emptyCnt == b.emptyCnt && a.p.x > b.p.x)
+		|| (a.favorCnt == b.favorCnt && a.emptyCnt == b.emptyCnt && a.p.x == b.p.x && a.p.y > b.p.y))
+		return true;
+	return false;
+}
+
+int getFavorCnt(int n, int x, int y) {
+	int cnt = 0;
+	for (int i = 0; i < 4; i++) {
+		int nextX = x + dx[i];
+		int nextY = y + dy[i];
+		if (inBoundary(nextX, nextY)) {
+			for (int j = 0; j < 4; j++) {
+				if (map[nextX][nextY] == fav[n][j]) cnt++;
+			}
+		}
+	}
+	return cnt;
+}
+
+int getSatisfy() {
+	int val = 0;
+	for (int i = 0; i < num; i++) {
+		for (int j = 0; j < num; j++) {
+			int favorCnt = getFavorCnt(map[i][j], i, j);
+			switch (favorCnt) {
+			case 1:
+				val += 1;
+				break;
+			case 2:
+				val += 10;
+				break;
+			case 3:
+				val += 100;
+				break;
+			case 4:
+				val += 1000;
+				break;
+			}
+		}
+	}
+	return val;
+}
+
+int getEmptyCnt(int x, int y) {
+	int cnt = 0;
+	for (int i = 0; i < 4; i++) {
+		int nextX = x + dx[i];
+		int nextY = y + dy[i];
+		if (inBoundary(nextX, nextY)) {
+			for (int j = 0; j < 4; j++) {
+				if (map[nextX][nextY] == 0) cnt++;
+			}
+		}
+	}
+	return cnt;
+}
+
+void select(int n) {
+	versePos most = { -1,-1, 0, 0 };
+	for (int i = 0; i < num; i++) {
+		for (int j = 0; j < num; j++) {
+			if (map[i][j] == 0) {
+				versePos now = { i,j,0,0 };
+				now.favorCnt = getFavorCnt(n, i, j);
+				now.emptyCnt = getEmptyCnt(i, j);
+				if (oper(most, now)) {
+					most = now;
+				}
+			}
+		}
+	}
+	map[most.p.x][most.p.y] = n;
+}
+
+/*
 void select(int n) {
 	prt p = { 0,0,0 };
 	pos *std;
@@ -89,7 +175,7 @@ void select(int n) {
 				if (inBoundary(nextX, nextY) && map[nextX][nextY] != CHK) {
 					map[nextX][nextY]++;
 					int cntBuf = getEmtptyCnt(nextX, nextY);
-					if (map[nextX][nextY] > p.cnt || 
+					if (map[nextX][nextY] > p.cnt ||
 						(map[nextX][nextY] == p.cnt && cntBuf > emptyCnt)) {
 						p.p.x = nextX;
 						p.p.y = nextY;
@@ -131,11 +217,13 @@ void select(int n) {
 		}
 	}
 	map[student[n].x][student[n].y] = CHK;
-	
+
 	return;
 }
+*/
 
 int main() {
+	/*
 	int stdnt;
 	scanf("%d", &num);
 	total = num * num;
@@ -147,7 +235,22 @@ int main() {
 		select(stdnt);
 		sit[stdnt] = 1;
 	}
-	printf("%d\n", getSatisfaction());
+*/
+	int stdnt[MAX_STU + 1];
+	scanf("%d", &num);
+	total = num * num;
+	for (int i = 0; i < total; i++) {
+		scanf("%d", &stdnt[i]);
+		for (int j = 0; j < 4; j++) {
+			scanf("%d", &fav[stdnt[i]][j]);
+		}
+	}
+
+	for (int i = 0; i < total; i++) {
+		select(stdnt[i]);
+	}
+
+	printf("%d\n", getSatisfy());
 
 	return 0;
 }
